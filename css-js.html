@@ -627,14 +627,20 @@ input {
 	text-align: center;
 }
 
-/* Newsletter subscribe web form */
+/* Newsletter subscribe web form
+ * Two forms: The wwo forms enable two types of confirmation message for iframe support
+ * 4860 is for iframing in Libapps, 4861 is confirmation page
+ * 4854 is for drupal site
+ * 
+ */
 iframe#subscribe-to-newsletter {
 	width: 100%;
 	height: 350px;
 	border: 0px none;
 }
 body.page-node-4854,
-#block-webform-client-block-4854 {
+body.page-node-4861,
+#block-webform-client-block-4860 {
 	float: right;
 	margin: 25px 15px;
 	background-color: #00457c !important;
@@ -646,28 +652,32 @@ body.page-node-4854.page-node-done {
 	color: #000;
 }
 body.page-node-4854 h1,
-#block-webform-client-block-4854 h2 {
+#block-webform-client-block-4860 h2 {
 	font-size: 20px;
 	font-weight: bold;
 	text-transform: uppercase;
 }
 body.page-node-4854 input.form-text,
-#block-webform-client-block-4854 input.form-text {
+#block-webform-client-block-4860 input.form-text {
 	width: 220px;
 	color: #444;
 }
 body.page-node-4854 label,
-#block-webform-client-block-4854 label {
+#block-webform-client-block-4860 label {
 	display: inline-block;
 	width: 50px;
 	font-size: 13px;
 }
 body.page-node-4854 .description,
-#block-webform-client-block-4854 .description {
+#block-webform-client-block-4860 .description {
 	margin-left: 70px;
 }
+body.page-node-4854 .form-required,
+#block-webform-client-block-4860 .form-required {
+	color: #ffd1cc;
+}
 body.page-node-4854 input.form-submit,
-#block-webform-client-block-4854 input.form-submit {
+#block-webform-client-block-4860 input.form-submit {
 	background-color: #02779e;
 	border: 1px solid white;
 	border-radius: 5px;
@@ -677,9 +687,9 @@ body.page-node-4854 input.form-submit,
 body.page-node-4854 input.form-submit:hover,
 body.page-node-4854 input.form-submit:active,
 body.page-node-4854 input.form-submit:focus,
-#block-webform-client-block-4854 input.form-submit:hover,
-#block-webform-client-block-4854 input.form-submit:active,
-#block-webform-client-block-4854 input.form-submit:focus {
+#block-webform-client-block-4860 input.form-submit:hover,
+#block-webform-client-block-4860 input.form-submit:active,
+#block-webform-client-block-4860 input.form-submit:focus {
 	background-color: transparent;
 }
 
@@ -821,6 +831,9 @@ ul.s-lg-subtab-ul.dropdown-menu { min-width:0px; }
 /*reduces font size in gold Admin bar to keep page title visible*/ 
 ul.nav.navbar-nav { font-size:12px; }
 
+/* A11y fixes for embedded calendar */
+.s-lg-guide-body .s-lc-whw-head-date { color: #525252; }
+
 /* Tabbed navigation pages fixes */
 .s-lib-jqtabs ul.nav-tabs {
 padding: 0;
@@ -873,6 +886,9 @@ body.s-la-page-public { background-color: #fff; }
 
 /*Hides h3 header "Topics" in topics section of FAQ*/
 .s-la-faq-topics h3 {display:none;}
+
+/*Color contrast for a11y */
+.s-la-faq-listing-meta .divider {color: #595959;}
 
 /*LibAnswers Overrides*/
 .s-la-page-public .header-main .form-actions{
@@ -927,6 +943,10 @@ body.s-lc-public { background-color: #fff; }
 
 /*set background color of outside of normal hours room to accessible blue*/
 .lc_rm_b { background-color:#1A85FF; }
+
+/* alert box a11y */
+.s-lc-public .alert-danger,
+.s-lc-public .alert-danger:hover { color: #6d1a17; }
 
 /*set color and style for room availability key*/
 .label-rm-avail {
