@@ -585,7 +585,8 @@ input {
 	background-color: #00457c;
 	color: #fff;
 	padding: 5px 0px;
-	font-size: .8em;
+	font-size: 0.8em;
+	text-transform: uppercase;
 	clear: both;
 	max-width: 1350px;
 	margin: 0 auto;
@@ -598,6 +599,12 @@ input {
 
 .footer2 address {
 	margin-bottom: 0px;
+}
+
+.footer2 h2 {
+	font-size: 20px;
+	font-weight: bold;
+	text-transform: uppercase;
 }
 
 .footer2 .contact,
@@ -623,19 +630,30 @@ input {
 .footer2 .creative-commons,
 .footer2 .accessibility-info,
 .footer2 .staff-links,
-.footer2 .social {
+.footer2 .social,
+.footer2 .land-acknowledgement {
 	text-align: center;
 }
 
+.footer2 address { text-transform: none; }
+.footer2 .land-acknowledgement {
+	margin-top: 30px;
+	text-transform: none;
+}
+
+.footer2 .land-acknowledgement a {
+	text-decoration:  underline;
+}
+
 /* Newsletter subscribe web form
- * Two forms: The wwo forms enable two types of confirmation message for iframe support
- * 4860 is for iframing in Libapps, 4861 is confirmation page
- * 4854 is for drupal site
+ * Two forms: The two forms enable two types of confirmation message for iframe support
+ * 4854 is for iframing in Libapps, 4861 is confirmation page
+ * 4860 is webform for drupal site
  * 
  */
 iframe#subscribe-to-newsletter {
 	width: 100%;
-	height: 350px;
+	height: 385px;
 	border: 0px none;
 }
 body.page-node-4854,
@@ -694,16 +712,28 @@ body.page-node-4854 input.form-submit:focus,
 }
 
 @media only screen and (min-width : 768px) {
-	.footer2 iframe {
+	.footer2 iframe#subscribe-to-newsletter {
 		float: right;
+		width: 46%;
+		position: relative;
+		top: -298px;
+	}
+	#block-webform-client-block-4860 {
+		position: relative;
+		top: -299px;
 	}
 
 	.footer2 .contact,
 	.footer2 .creative-commons,
 	.footer2 .accessibility-info,
 	.footer2 .staff-links,
-	.footer2 .social {
+	.footer2 .social,
+	.footer2 .land-acknowledgement {
 		text-align: left;
+	}
+	.footer2 .accessibility-info {
+		padding-left: 5px;
+		padding-right: 5px;
 	}
 }
 
@@ -712,6 +742,16 @@ body.page-node-4854 input.form-submit:focus,
 		width: 49%;
 		padding-right: 32px;
 		float: left;
+	}
+}
+@media only screen and (min-width: 992px) {
+	#block-webform-client-block-4860 {
+		position: relative;
+		top: -207px;
+	}
+	.footer2 iframe#subscribe-to-newsletter {
+		width: 34%;
+		top: -205px;
 	}
 }
 
@@ -861,7 +901,7 @@ body.s-la-page-public { background-color: #fff; }
 #s-la-vote {display: none;}
 #s-la-box-47343 > div.s-la-box-title.s-la-box-title-simple.s-la-box-border-simple {display: none;}
 #s-la-box-47343 > div.s-la-box-content.clearfix {display: none;}
-.s-la-page-public .col-sm-6 { width: auto !important;}
+#s-la-headerlinks .col-sm-6 { width: auto !important;}
 #s-la-box-50765 > div.s-la-box-title.s-la-box-title-simple.s-la-box-border-simple {display: none;}
 #s-la-box-50765 > div.s-la-box-content.clearfix {display: none;}
 #s-la-box-52340 > div.s-la-box-title.s-la-box-title-simple.s-la-box-border-simple {display: none;}
