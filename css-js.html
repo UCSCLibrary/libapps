@@ -1,726 +1,752 @@
 <script>
-jQuery(document).ready(function() {
-	/* search form placeholder text */
-	jQuery('#edit-search-block-form--2').attr("placeholder", "Search this Site");
-});
+	jQuery(document).ready(function () {
+		/* search form placeholder text */
+		jQuery('#edit-search-block-form--2').attr("placeholder", "Search this Site");
+	});
 </script>
 <script src="https://kit.fontawesome.com/28dac62ade.js" crossorigin="anonymous"></script>
 <style>
-/* Global Styles
+	/* Global Styles
  *
  * Library global branding styles, for copying and pasting
  * to other sites, like LibApps.
  *
  * Copy updates to libapps repo
  */
-* {
-	margin: 0;
-	padding: 0;
-}
-
-body {
-	font-family: Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
-	margin: 0px;
-	padding: 0;
-	font-size: 16px;
-	line-height: 1.42857143;
-	color: #000;
-	background-color: #eee;
-}
-.container { max-width: 1350px; }
-a { color: #02779e; }
-.error { color: red; }
-.hidden { visibility: hidden; }
-.highlight { color: #2196f3; }
-
-div.box {
-	background-color: #fc3;
-	margin: 10px 10px 18px 10px;
-	padding: 8px;
-}
-div.box h2 { margin-top: 10px; }
-
-#s-lg-guide-mini-cmd-bar {
-	margin-top: 50px;
-	padding-bottom: 40px;
-}
-
-.clearfix:after {
-    content: ".";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
-}
-.element-invisible {
-    position: absolute !important;
-    clip: rect(1px 1px 1px 1px);
-    clip: rect(1px, 1px, 1px, 1px);
-    overflow: hidden;
-    height: 1px;
-}
-h1.page-title {
-	font-size: 1.55em;
-	display: block;
-	margin-top: 20px;
-    margin-bottom: 20px;
-	font-family: Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
-	font-weight: 500;
-}
-h3 {
-  color: #000;
-  font-size: .95em;
-  font-weight: bold;
-  line-height: 1.15;
-  margin: 1.25em 0 .75em;
-  text-transform: uppercase;
-}
-input.form-radio {
-    position: relative;
-    top: -4px;
-}
-
-span.fieldset-legend {
-	margin-bottom: 20px;
-}
-
-html.js fieldset.collapsed {
-	height: 3em;
-}
-.text-center {
-	/* todo: replace me */
-  	padding-top: 20px;
-}
-
-/* Header Styles */
-.header {
-	max-width: 1350px;
-	margin: 0 auto;
-	border-left: 1px solid #444;
-	border-right: 1px solid #444;
-}
-
-.header-main {
-	background-color: #01589d;
-	padding: 10px;
-	overflow: hidden;
-}
-
-.header-main .site-logo {
-	text-align: center;
-}
-
-.header-main h1 {
-	display: inline-block;
-	padding: 0px;
-	margin: 5px 0px 10px 0px;
-}
-
-.header-main h1 .site-title-mobile {
-	color: #fff;
-	font-size: 18px;
-	padding-left: 1px;
-}
-
-/* Main menu - top bar, not mega menu */
-.header-main-menu .content {
-	text-align: center;
-	display: block;
-}
-
-.header-main-menu ul {
-	display: inline-block;
-	margin: 8px 0px;
-	background-color: #02779e;
-	padding: 3px 0px 4px 0px;
-}
-
-.header-main-menu ul.menu li.leaf {
-	display: inline-block;
-	list-style-type: none;
-	margin: 0px;
-	padding: 0px;
-}
-
-.header-main-menu ul li a {
-	text-decoration: none;
-	color: #fff;
-	background-repeat: no-repeat;
-	padding: 5px 7px;
-	text-align: center;
-	background-image: none;
-	font-size: 14px;
-}
-
-.header-main-menu ul li a:hover {
-	background-color: #ffcc33;
-	text-decoration: none;
-	color: #00457c;
-}
-
-.header-main-sitesearch {
-	margin: 5px 0px;
-}
-
-.header-main-sitesearch img {
-	display: inline;
-	cursor: pointer;
-}
-
-.header-main-sitesearch .form-submit {
-  	display: none;
-}
-
-.header-main-sitesearch form .form-text {
-	border: 1px solid #fff;
-	background-color: #fff;
-	color: #00457c;
-	font-weight: normal;
-	width: 138px;
-	height: 20px;
-	padding: 0px 8px;
-	margin: 0px;
-}
-
-.header-main-sitesearch form .form-hide {
-	display: none;
-}
-
-.header-main-sitesearch form .search {
-	padding: 0px 3px;
-}
-
-#search-block-form #edit-actions, 
-#search-block-form .form-item-search-block-form {
-	display:inline;
-}
-#edit-search-block-form--2 {
-	background-image:none !important;
-	font-size: 15px;
-    line-height: 140%;
-    padding: 4px;
-    color: #84827c;
-	height: 29px;
-	margin-top: -3px;
-}
-
-#edit-search-block-form--2::placeholder {
-    color: #84827c;
-    opacity: 1;
-}
-
-@media all and (min-width : 860px) {
-	.header-main h1 {
-		font-size: 1px;
+	* {
+		margin: 0;
+		padding: 0;
+		/* This is a useless comment */
 	}
 
-	.header-main h1 .site-title-mobile {
-		display: none;
+	body {
+		font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+		margin: 0px;
+		padding: 0;
+		font-size: 16px;
+		line-height: 1.42857143;
+		color: #000;
+		background-color: #eee;
+	}
+
+	.container {
+		max-width: 1350px;
+	}
+
+	a {
+		color: #02779e;
+	}
+
+	.error {
+		color: red;
+	}
+
+	.hidden {
+		visibility: hidden;
+	}
+
+	.highlight {
+		color: #2196f3;
+	}
+
+	div.box {
+		background-color: #fc3;
+		margin: 10px 10px 18px 10px;
+		padding: 8px;
+	}
+
+	div.box h2 {
+		margin-top: 10px;
+	}
+
+	#s-lg-guide-mini-cmd-bar {
+		margin-top: 50px;
+		padding-bottom: 40px;
+	}
+
+	.clearfix:after {
+		content: ".";
+		display: block;
+		height: 0;
+		clear: both;
+		visibility: hidden;
+	}
+
+	.element-invisible {
+		position: absolute !important;
+		clip: rect(1px 1px 1px 1px);
+		clip: rect(1px, 1px, 1px, 1px);
+		overflow: hidden;
+		height: 1px;
+	}
+
+	h1.page-title {
+		font-size: 1.55em;
+		display: block;
+		margin-top: 20px;
+		margin-bottom: 20px;
+		font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+		font-weight: 500;
+	}
+
+	h3 {
+		color: #000;
+		font-size: .95em;
+		font-weight: bold;
+		line-height: 1.15;
+		margin: 1.25em 0 .75em;
+		text-transform: uppercase;
+	}
+
+	input.form-radio {
+		position: relative;
+		top: -4px;
+	}
+
+	span.fieldset-legend {
+		margin-bottom: 20px;
+	}
+
+	html.js fieldset.collapsed {
+		height: 3em;
+	}
+
+	.text-center {
+		/* todo: replace me */
+		padding-top: 20px;
+	}
+
+	/* Header Styles */
+	.header {
+		max-width: 1350px;
+		margin: 0 auto;
+		border-left: 1px solid #444;
+		border-right: 1px solid #444;
 	}
 
 	.header-main {
-		padding: 10px 10px 4px 10px;
-		height: 45px;
+		background-color: #01589d;
+		padding: 10px;
+		overflow: hidden;
+	}
+
+	.header-main .site-logo {
+		text-align: center;
 	}
 
 	.header-main h1 {
-		margin: 0px;
-		float: left;
+		display: inline-block;
+		padding: 0px;
+		margin: 5px 0px 10px 0px;
 	}
 
-	.header-main-menu {
-		float: right;
+	.header-main h1 .site-title-mobile {
+		color: #fff;
+		font-size: 18px;
+		padding-left: 1px;
 	}
 
+	/* Main menu - top bar, not mega menu */
 	.header-main-menu .content {
 		text-align: center;
-		display: inline-block;
-	}
-
-	.header-main-menu #block-system-main-menu, 
-	.header-main-menu #block-menu-menu-main-menu {
-		display: inline-block;
+		display: block;
 	}
 
 	.header-main-menu ul {
 		display: inline-block;
-		margin: 0px 0px 0px 0px;
-		padding: 0px 0px 10px 10px;
-		background-color: transparent;
+		margin: 8px 0px;
+		background-color: #02779e;
+		padding: 3px 0px 4px 0px;
 	}
 
 	.header-main-menu ul.menu li.leaf {
-		display: inline;
-		padding: 0px 10px 0px 0px;
+		display: inline-block;
 		list-style-type: none;
-		text-align: left;
+		margin: 0px;
+		padding: 0px;
 	}
 
 	.header-main-menu ul li a {
-		border: none;
-		background-color: transparent;
-	}
-	.header-main-menu ul li a:hover {
-		text-decoration: underline;
-		background-color: transparent;
+		text-decoration: none;
 		color: #fff;
-	}
-
-	.header-main-menu ul li a {
-		background-image: url('https://library.ucsc.edu/sites/default/files/external/images/golddot.png');
-		padding: 1px 0px 0px 16px;
-		background-position: 0% 55%;
-	}
-
-	.header-main-menu ul li a.hours {
+		background-repeat: no-repeat;
+		padding: 5px 7px;
+		text-align: center;
 		background-image: none;
-		padding: 1px 0px 0px 0px;
+		font-size: 14px;
+	}
+
+	.header-main-menu ul li a:hover {
+		background-color: #ffcc33;
+		text-decoration: none;
+		color: #00457c;
 	}
 
 	.header-main-sitesearch {
-		display: inline-block;
-		margin: 0px;
+		margin: 5px 0px;
 	}
 
 	.header-main-sitesearch img {
-		margin: 0 auto;
-		display: inline-block;
+		display: inline;
+		cursor: pointer;
+	}
+
+	.header-main-sitesearch .form-submit {
+		display: none;
 	}
 
 	.header-main-sitesearch form .form-text {
-		margin: 0px 2px 0px 8px;
+		border: 1px solid #fff;
+		background-color: #fff;
+		color: #00457c;
+		font-weight: normal;
+		width: 138px;
+		height: 20px;
+		padding: 0px 8px;
+		margin: 0px;
 	}
-}
 
-/* menu container */
-.nav,
-.nav a,
-.nav form,
-.nav input,
-.nav li,
-.nav ul {
-  border: none;
-  margin: 0;
-  padding: 0;
-}
-.nav a {
-  text-decoration: none;
-}
-.nav li {
-  list-style: none;
-}
-.nav,
-input {
-  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  -webkit-font-smoothing: antialiased;
-}
-.nav {
-  cursor: default;
-  display: inline-block;
-  position: relative;
-  z-index: 500;
-}
-
-/* menu list */
-.nav > li {
-  float: left;
-}
-.nav > li:first-child > a {
-  border-left: none;
-}
-
-.nav-pills > li.active > a, 
-.nav-pills > li.active > a:focus, 
-.nav-pills > li.active > a:hover {
-    background-color: #ffcc33;
-}
-.nav > li > a:hover, 
-.nav > li > a:focus {
-    outline: none;
-}
-
-/*
- * Secondary header: mega menu and site title 
- */
-.navbar { margin-bottom: 0; }
-.header-secondary { background-color: #00457c; }
-.navbar-toggle {
-	display: block;
-	margin: 8px auto;
-	color: #fff;
-	text-transform: uppercase;
-	width: 80px;
-	border: 1px solid #fff;
-	border-radius: 0;
-	padding: 7px 0px;
-	float: none;
-}
-/* Site title: University Library */
-.header-secondary a.navbar-brand { display: none; }
-.header-secondary a.navbar-brand:hover, 
-.header-secondary a.navbar-brand:visited {
-	text-decoration: none;
-}
-@media all and (min-width: 768px) {
-	.header-secondary {
-		background-color: #02779e;
-		overflow: visible;
+	.header-main-sitesearch form .form-hide {
+		display: none;
 	}
-	.navbar { margin-bottom: 20px; }
-	.navbar-toggle { display: none; }
-}
-@media all and (min-width: 860px) {
-	.header-secondary a.navbar-brand {
-		display: block;
-		padding: 8px;
-		max-width: 170px;
-		font-size: 24px;
-		color: #fff;
-		text-transform: uppercase;
-		text-decoration: none;
-		letter-spacing: 0.035em;
-		line-height: 1.1;
-		z-index: 9;		
-	}
-}
-@media all and (min-width: 951px) {
-	.header-secondary a.navbar-brand {
-		font-size: 2.225em;
-		max-width: 200px;
-	}
-}
-/* Mega/Main menu */
-#block-block-34 .menu { margin: 10px 0; }
-#block-block-34 .menu,
-#block-block-34 .menu > li {
-	display: block;
-	float: none;
-	margin-left: 0;
-}
-#block-block-34 .menu > li { border-top: 1px solid #fff; }
-#block-block-34 .menu > li.last { border-bottom: 1px solid #fff; }
-#block-block-34 .dropdown > a { color: #fff; }
-#block-block-34 .dropdown > a:hover,
-#block-block-34 .dropdown > a:active,
-#block-block-34 .dropdown > a:focus,
-#block-block-34 .open > a {
-	text-decoration: none;
-	background-color: #ffcc33;
-	color: #000;
-}
-#block-block-34 a i { display: none; }
-#block-block-34 .dropdown-menu li { margin: 0 10px; }
-#block-block-34 .dropdown-menu a {
-	display: block;
-	color: #fff;
-}
-#block-block-34 .dropdown-menu a:hover,
-#block-block-34 .dropdown-menu a:focus,
-#block-block-34 .dropdown-menu a:active {
-	color: #262626;
-}
-#block-block-34 .dropdown-menu ul li {
-	margin: 5px 0;
-	padding: 5px 0;
-	border-bottom: 1px dashed gray;
-	color: #fff;
-}
-#block-block-34 .dropdown-menu li:last-child li:last-child { border: none; }
-#block-block-34 .dropdown-menu ul li:hover a { color: #ffcc33; }
-#block-block-34 .dropdown-menu .menu-heading {
-	display: block;
-	font-size: 15px;
-	font-weight: bold;
-}
-#block-block-34 .dropdown-menu .menu-body { color: #ffcc33; }
 
-@media all and (min-width: 768px) {
-	#block-block-34 .menu {
-		width: 660px;
-		margin: 0 auto;
+	.header-main-sitesearch form .search {
+		padding: 0px 3px;
 	}
-	#block-block-34 .menu > li {
-		float: left;
+
+	#search-block-form #edit-actions,
+	#search-block-form .form-item-search-block-form {
+		display: inline;
+	}
+
+	#edit-search-block-form--2 {
+		background-image: none !important;
+		font-size: 15px;
+		line-height: 140%;
+		padding: 4px;
+		color: #84827c;
+		height: 29px;
+		margin-top: -3px;
+	}
+
+	#edit-search-block-form--2::placeholder {
+		color: #84827c;
+		opacity: 1;
+	}
+
+	@media all and (min-width : 860px) {
+		.header-main h1 {
+			font-size: 1px;
+		}
+
+		.header-main h1 .site-title-mobile {
+			display: none;
+		}
+
+		.header-main {
+			padding: 10px 10px 4px 10px;
+			height: 45px;
+		}
+
+		.header-main h1 {
+			margin: 0px;
+			float: left;
+		}
+
+		.header-main-menu {
+			float: right;
+		}
+
+		.header-main-menu .content {
+			text-align: center;
+			display: inline-block;
+		}
+
+		.header-main-menu #block-system-main-menu,
+		.header-main-menu #block-menu-menu-main-menu {
+			display: inline-block;
+		}
+
+		.header-main-menu ul {
+			display: inline-block;
+			margin: 0px 0px 0px 0px;
+			padding: 0px 0px 10px 10px;
+			background-color: transparent;
+		}
+
+		.header-main-menu ul.menu li.leaf {
+			display: inline;
+			padding: 0px 10px 0px 0px;
+			list-style-type: none;
+			text-align: left;
+		}
+
+		.header-main-menu ul li a {
+			border: none;
+			background-color: transparent;
+		}
+
+		.header-main-menu ul li a:hover {
+			text-decoration: underline;
+			background-color: transparent;
+			color: #fff;
+		}
+
+		.header-main-menu ul li a {
+			background-image: url('https://library.ucsc.edu/sites/default/files/external/images/golddot.png');
+			padding: 1px 0px 0px 16px;
+			background-position: 0% 55%;
+		}
+
+		.header-main-menu ul li a.hours {
+			background-image: none;
+			padding: 1px 0px 0px 0px;
+		}
+
+		.header-main-sitesearch {
+			display: inline-block;
+			margin: 0px;
+		}
+
+		.header-main-sitesearch img {
+			margin: 0 auto;
+			display: inline-block;
+		}
+
+		.header-main-sitesearch form .form-text {
+			margin: 0px 2px 0px 8px;
+		}
+	}
+
+	/* menu container */
+	.nav,
+	.nav a,
+	.nav form,
+	.nav input,
+	.nav li,
+	.nav ul {
 		border: none;
-	}
-	#block-block-34 a i { display: inline-block; }
-	#block-block-34 .dropdown { position: relative; }
-	#block-block-34 .dropdown > a {
-		font-size: 14px;
-		text-transform: uppercase;
-	}
-	#block-block-34 .dropdown > a span {
-		display: block;
-		margin-top: 5px;
-		font-size: 12px;
-		text-transform: none;
-	}
-	#block-block-34 i.fas {
-		color: #ffcc33;
-		padding-left: 2px;
-	}
-	#block-block-34 .dropdown-menu { padding: 10px 15px; }
-	#block-block-34 .dropdown-menu.three-col { width: 705px; }
-	#block-block-34 .dropdown-menu.two-col { width: 480px; }
-	#block-block-34 .right .dropdown-menu {
-		left: auto;
-		right: 0;
-	}
-	#block-block-34 .dropdown-menu > li {
-		float: left;
-		width: 225px;
-		margin: 0;
-	}
-	#block-block-34 .dropdown-menu ul li {
-		height: 80px;
 		margin: 0;
 		padding: 0;
 	}
-	#block-block-34 .dropdown-menu li:last-child li:last-child {
-		border-bottom: 1px dashed gray;
+
+	.nav a {
+		text-decoration: none;
 	}
-	#block-block-34 .dropdown-menu li:last-child li:last-child:hover,
-	#block-block-34 .dropdown-menu ul li:hover {
-		border-bottom: 3px solid #ffcc33;
+
+	.nav li {
+		list-style: none;
 	}
-	#block-block-34 .dropdown-menu ul li:hover .menu-heading {
-		color: #000;
+
+	.nav,
+	input {
+		font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+		font-size: 16px;
+		-webkit-font-smoothing: antialiased;
 	}
-	#block-block-34 .dropdown-menu a {
-		white-space: normal;
-		height: 100%;
+
+	.nav {
+		cursor: default;
+		display: inline-block;
+		position: relative;
+		z-index: 500;
 	}
-	#block-block-34 .dropdown-menu .menu-heading {
-		padding: 10px 15px 0 0;
-		font-size: 14px;
-		color: #02779e;
+
+	/* menu list */
+	.nav>li {
+		float: left;
 	}
-	#block-block-34 .dropdown-menu .menu-body {
-		padding: 0 15px 10px 0;
-		font-size: 12px;
-		color: #000;
+
+	.nav>li:first-child>a {
+		border-left: none;
 	}
-}
-@media all and (min-width: 860px) {
-	#block-block-34 .menu {
-		width: auto;
-		float: right;
-		margin: 0;
+
+	.nav-pills>li.active>a,
+	.nav-pills>li.active>a:focus,
+	.nav-pills>li.active>a:hover {
+		background-color: #ffcc33;
 	}
-	#block-block-34 .dropdown.first .dropdown-menu { left: -40px; }
-}
-@media all and (min-width: 1020px) { 
-	#block-block-34 .dropdown > a { font-size: 18px; }
-	#block-block-34 .dropdown.first .dropdown-menu { left: auto; }
-}
 
-/* Other styles */
-.columns-2 {
-    border-radius: 5px;
-    column-count: 2;
-    column-gap: 1em;
-    margin-bottom: 1em;
-    padding: 0.8em;
-}
+	.nav>li>a:hover,
+	.nav>li>a:focus {
+		outline: none;
+	}
 
-.larger-text {
-    background-color: #dddddd;
-    font-size: 18px;
-    margin-bottom: 5px;
-    padding: 6px 8px;
-	clear: both;
-}
-
-.callout-full {
-    margin: 0 auto;
-    width: 100%;
-}
-
-.callout-right, 
-.right {
-    float: right;
-    margin: 0 0 0.8em 1em;
-}
-
-.callout-left {
-    float: left;
-    margin: 0 1em 0.8em 0;
-}
-
-.callout-left, 
-.callout-right {
-    width: 30%;
-}
-
-.callout-full, 
-.callout-left, 
-.callout-right {
-    border-radius: 5px;
-    display: table;
-    line-height: 1.2;
-    padding: 0.8em;
-	border: 1px solid #ddd;
-	margin: 12px;
-}
-
-/* Footer Styles */
-.footer,
-#s-lib-footer-public div {
-	background-color: #00457c;
-	color: #fff;
-}
-
-.footer a,
-#s-lib-footer-public div a,
-#s-lib-footer-public .s-lg-text-greyout {
-	color: #fff;
-}
-
-#s-lib-footer-public div {
-    background-color: #00457c;
-}
-
-.footer2 {
-	background-color: #00457c;
-	color: #fff;
-	padding: 5px 0px;
-	font-size: 0.8em;
-	text-transform: uppercase;
-	clear: both;
-	max-width: 1350px;
-	margin: 0 auto;
-	overflow: auto;
-}
-
-.footer2 a {
-	color: #fff;
-}
-
-.footer2 address {
-	margin-bottom: 0px;
-}
-
-.footer2 h2 {
-	font-size: 20px;
-	font-weight: bold;
-	text-transform: uppercase;
-}
-
-.footer2 .contact,
-.footer2 .accessibility-info,
-.footer2 .staff-links,
-.footer2 .social {
-	padding-top: 14px;
-}
-
-.footer2 .creative-commons {
-	font-size: .8em;
-}
-
-.footer2 .creative-commons img {
-	display: block;
-	margin: 0 auto;
-}
-
-.footer2 .contact img {
-	padding: 0px 3px;
-}
-.footer2 .contact,
-.footer2 .creative-commons,
-.footer2 .accessibility-info,
-.footer2 .staff-links,
-.footer2 .social,
-.footer2 .land-acknowledgement {
-	text-align: center;
-}
-
-.footer2 address { text-transform: none; }
-.footer2 .land-acknowledgement {
-	margin-top: 30px;
-	text-transform: none;
-}
-
-.footer2 .land-acknowledgement a {
-	text-decoration:  underline;
-}
-
-/* Newsletter subscribe web form
- * Two forms: The two forms enable two types of confirmation message for iframe support
- * 4854 is for iframing in Libapps, 4861 is confirmation page
- * 4860 is webform for drupal site
- * 
+	/*
+ * Secondary header: mega menu and site title 
  */
-iframe#subscribe-to-newsletter {
-	width: 100%;
-	height: 385px;
-	border: 0px none;
-}
-body.page-node-4854,
-body.page-node-4861,
-#block-webform-client-block-4860 {
-	float: right;
-	margin: 25px 15px;
-	background-color: #00457c !important;
-	color: #fff;
-}
-body.page-node-4854.page-node-done {
-	float: none;
-	margin: 0px;
-	color: #000;
-}
-body.page-node-4854 h1,
-#block-webform-client-block-4860 h2 {
-	font-size: 20px;
-	font-weight: bold;
-	text-transform: uppercase;
-}
-body.page-node-4854 input.form-text,
-#block-webform-client-block-4860 input.form-text {
-	width: 220px;
-	color: #444;
-}
-body.page-node-4854 label,
-#block-webform-client-block-4860 label {
-	display: inline-block;
-	width: 50px;
-	font-size: 13px;
-}
-body.page-node-4854 .description,
-#block-webform-client-block-4860 .description {
-	margin-left: 70px;
-}
-body.page-node-4854 .form-required,
-#block-webform-client-block-4860 .form-required {
-	color: #ffd1cc;
-}
-body.page-node-4854 input.form-submit,
-#block-webform-client-block-4860 input.form-submit {
-	background-color: #02779e;
-	border: 1px solid white;
-	border-radius: 5px;
-	margin: 5px 0 0 67px;
-	padding: 5px 8px;
-}
-body.page-node-4854 input.form-submit:hover,
-body.page-node-4854 input.form-submit:active,
-body.page-node-4854 input.form-submit:focus,
-#block-webform-client-block-4860 input.form-submit:hover,
-#block-webform-client-block-4860 input.form-submit:active,
-#block-webform-client-block-4860 input.form-submit:focus {
-	background-color: transparent;
-}
-
-@media only screen and (min-width : 768px) {
-	.footer2 iframe#subscribe-to-newsletter {
-		float: right;
-		width: 46%;
-		position: relative;
-		top: -298px;
+	.navbar {
+		margin-bottom: 0;
 	}
-	#block-webform-client-block-4860 {
-		position: relative;
-		top: -299px;
+
+	.header-secondary {
+		background-color: #00457c;
+	}
+
+	.navbar-toggle {
+		display: block;
+		margin: 8px auto;
+		color: #fff;
+		text-transform: uppercase;
+		width: 80px;
+		border: 1px solid #fff;
+		border-radius: 0;
+		padding: 7px 0px;
+		float: none;
+	}
+
+	/* Site title: University Library */
+	.header-secondary a.navbar-brand {
+		display: none;
+	}
+
+	.header-secondary a.navbar-brand:hover,
+	.header-secondary a.navbar-brand:visited {
+		text-decoration: none;
+	}
+
+	@media all and (min-width: 768px) {
+		.header-secondary {
+			background-color: #02779e;
+			overflow: visible;
+		}
+
+		.navbar {
+			margin-bottom: 20px;
+		}
+
+		.navbar-toggle {
+			display: none;
+		}
+	}
+
+	@media all and (min-width: 860px) {
+		.header-secondary a.navbar-brand {
+			display: block;
+			padding: 8px;
+			max-width: 170px;
+			font-size: 24px;
+			color: #fff;
+			text-transform: uppercase;
+			text-decoration: none;
+			letter-spacing: 0.035em;
+			line-height: 1.1;
+			z-index: 9;
+		}
+	}
+
+	@media all and (min-width: 951px) {
+		.header-secondary a.navbar-brand {
+			font-size: 2.225em;
+			max-width: 200px;
+		}
+	}
+
+	/* Mega/Main menu */
+	#block-block-34 .menu {
+		margin: 10px 0;
+	}
+
+	#block-block-34 .menu,
+	#block-block-34 .menu>li {
+		display: block;
+		float: none;
+		margin-left: 0;
+	}
+
+	#block-block-34 .menu>li {
+		border-top: 1px solid #fff;
+	}
+
+	#block-block-34 .menu>li.last {
+		border-bottom: 1px solid #fff;
+	}
+
+	#block-block-34 .dropdown>a {
+		color: #fff;
+	}
+
+	#block-block-34 .dropdown>a:hover,
+	#block-block-34 .dropdown>a:active,
+	#block-block-34 .dropdown>a:focus,
+	#block-block-34 .open>a {
+		text-decoration: none;
+		background-color: #ffcc33;
+		color: #000;
+	}
+
+	#block-block-34 a i {
+		display: none;
+	}
+
+	#block-block-34 .dropdown-menu li {
+		margin: 0 10px;
+	}
+
+	#block-block-34 .dropdown-menu a {
+		display: block;
+		color: #fff;
+	}
+
+	#block-block-34 .dropdown-menu a:hover,
+	#block-block-34 .dropdown-menu a:focus,
+	#block-block-34 .dropdown-menu a:active {
+		color: #262626;
+	}
+
+	#block-block-34 .dropdown-menu ul li {
+		margin: 5px 0;
+		padding: 5px 0;
+		border-bottom: 1px dashed gray;
+		color: #fff;
+	}
+
+	#block-block-34 .dropdown-menu li:last-child li:last-child {
+		border: none;
+	}
+
+	#block-block-34 .dropdown-menu ul li:hover a {
+		color: #ffcc33;
+	}
+
+	#block-block-34 .dropdown-menu .menu-heading {
+		display: block;
+		font-size: 15px;
+		font-weight: bold;
+	}
+
+	#block-block-34 .dropdown-menu .menu-body {
+		color: #ffcc33;
+	}
+
+	@media all and (min-width: 768px) {
+		#block-block-34 .menu {
+			width: 660px;
+			margin: 0 auto;
+		}
+
+		#block-block-34 .menu>li {
+			float: left;
+			border: none;
+		}
+
+		#block-block-34 a i {
+			display: inline-block;
+		}
+
+		#block-block-34 .dropdown {
+			position: relative;
+		}
+
+		#block-block-34 .dropdown>a {
+			font-size: 14px;
+			text-transform: uppercase;
+		}
+
+		#block-block-34 .dropdown>a span {
+			display: block;
+			margin-top: 5px;
+			font-size: 12px;
+			text-transform: none;
+		}
+
+		#block-block-34 i.fas {
+			color: #ffcc33;
+			padding-left: 2px;
+		}
+
+		#block-block-34 .dropdown-menu {
+			padding: 10px 15px;
+		}
+
+		#block-block-34 .dropdown-menu.three-col {
+			width: 705px;
+		}
+
+		#block-block-34 .dropdown-menu.two-col {
+			width: 480px;
+		}
+
+		#block-block-34 .right .dropdown-menu {
+			left: auto;
+			right: 0;
+		}
+
+		#block-block-34 .dropdown-menu>li {
+			float: left;
+			width: 225px;
+			margin: 0;
+		}
+
+		#block-block-34 .dropdown-menu ul li {
+			height: 80px;
+			margin: 0;
+			padding: 0;
+		}
+
+		#block-block-34 .dropdown-menu li:last-child li:last-child {
+			border-bottom: 1px dashed gray;
+		}
+
+		#block-block-34 .dropdown-menu li:last-child li:last-child:hover,
+		#block-block-34 .dropdown-menu ul li:hover {
+			border-bottom: 3px solid #ffcc33;
+		}
+
+		#block-block-34 .dropdown-menu ul li:hover .menu-heading {
+			color: #000;
+		}
+
+		#block-block-34 .dropdown-menu a {
+			white-space: normal;
+			height: 100%;
+		}
+
+		#block-block-34 .dropdown-menu .menu-heading {
+			padding: 10px 15px 0 0;
+			font-size: 14px;
+			color: #02779e;
+		}
+
+		#block-block-34 .dropdown-menu .menu-body {
+			padding: 0 15px 10px 0;
+			font-size: 12px;
+			color: #000;
+		}
+	}
+
+	@media all and (min-width: 860px) {
+		#block-block-34 .menu {
+			width: auto;
+			float: right;
+			margin: 0;
+		}
+
+		#block-block-34 .dropdown.first .dropdown-menu {
+			left: -40px;
+		}
+	}
+
+	@media all and (min-width: 1020px) {
+		#block-block-34 .dropdown>a {
+			font-size: 18px;
+		}
+
+		#block-block-34 .dropdown.first .dropdown-menu {
+			left: auto;
+		}
+	}
+
+	/* Other styles */
+	.columns-2 {
+		border-radius: 5px;
+		column-count: 2;
+		column-gap: 1em;
+		margin-bottom: 1em;
+		padding: 0.8em;
+	}
+
+	.larger-text {
+		background-color: #dddddd;
+		font-size: 18px;
+		margin-bottom: 5px;
+		padding: 6px 8px;
+		clear: both;
+	}
+
+	.callout-full {
+		margin: 0 auto;
+		width: 100%;
+	}
+
+	.callout-right,
+	.right {
+		float: right;
+		margin: 0 0 0.8em 1em;
+	}
+
+	.callout-left {
+		float: left;
+		margin: 0 1em 0.8em 0;
+	}
+
+	.callout-left,
+	.callout-right {
+		width: 30%;
+	}
+
+	.callout-full,
+	.callout-left,
+	.callout-right {
+		border-radius: 5px;
+		display: table;
+		line-height: 1.2;
+		padding: 0.8em;
+		border: 1px solid #ddd;
+		margin: 12px;
+	}
+
+	/* Footer Styles */
+	.footer,
+	#s-lib-footer-public div {
+		background-color: #00457c;
+		color: #fff;
+	}
+
+	.footer a,
+	#s-lib-footer-public div a,
+	#s-lib-footer-public .s-lg-text-greyout {
+		color: #fff;
+	}
+
+	#s-lib-footer-public div {
+		background-color: #00457c;
+	}
+
+	.footer2 {
+		background-color: #00457c;
+		color: #fff;
+		padding: 5px 0px;
+		font-size: 0.8em;
+		text-transform: uppercase;
+		clear: both;
+		max-width: 1350px;
+		margin: 0 auto;
+		overflow: auto;
+	}
+
+	.footer2 a {
+		color: #fff;
+	}
+
+	.footer2 address {
+		margin-bottom: 0px;
+	}
+
+	.footer2 h2 {
+		font-size: 20px;
+		font-weight: bold;
+		text-transform: uppercase;
+	}
+
+	.footer2 .contact,
+	.footer2 .accessibility-info,
+	.footer2 .staff-links,
+	.footer2 .social {
+		padding-top: 14px;
+	}
+
+	.footer2 .creative-commons {
+		font-size: .8em;
+	}
+
+	.footer2 .creative-commons img {
+		display: block;
+		margin: 0 auto;
+	}
+
+	.footer2 .contact img {
+		padding: 0px 3px;
 	}
 
 	.footer2 .contact,
@@ -729,296 +755,547 @@ body.page-node-4854 input.form-submit:focus,
 	.footer2 .staff-links,
 	.footer2 .social,
 	.footer2 .land-acknowledgement {
-		text-align: left;
+		text-align: center;
 	}
-	.footer2 .accessibility-info {
+
+	.footer2 address {
+		text-transform: none;
+	}
+
+	.footer2 .land-acknowledgement {
+		margin-top: 30px;
+		text-transform: none;
+	}
+
+	.footer2 .land-acknowledgement a {
+		text-decoration: underline;
+	}
+
+	/* Newsletter subscribe web form
+ * Two forms: The two forms enable two types of confirmation message for iframe support
+ * 4854 is for iframing in Libapps, 4861 is confirmation page
+ * 4860 is webform for drupal site
+ * 
+ */
+	iframe#subscribe-to-newsletter {
+		width: 100%;
+		height: 385px;
+		border: 0px none;
+	}
+
+	body.page-node-4854,
+	body.page-node-4861,
+	#block-webform-client-block-4860 {
+		float: right;
+		margin: 25px 15px;
+		background-color: #00457c !important;
+		color: #fff;
+	}
+
+	body.page-node-4854.page-node-done {
+		float: none;
+		margin: 0px;
+		color: #000;
+	}
+
+	body.page-node-4854 h1,
+	#block-webform-client-block-4860 h2 {
+		font-size: 20px;
+		font-weight: bold;
+		text-transform: uppercase;
+	}
+
+	body.page-node-4854 input.form-text,
+	#block-webform-client-block-4860 input.form-text {
+		width: 220px;
+		color: #444;
+	}
+
+	body.page-node-4854 label,
+	#block-webform-client-block-4860 label {
+		display: inline-block;
+		width: 50px;
+		font-size: 13px;
+	}
+
+	body.page-node-4854 .description,
+	#block-webform-client-block-4860 .description {
+		margin-left: 70px;
+	}
+
+	body.page-node-4854 .form-required,
+	#block-webform-client-block-4860 .form-required {
+		color: #ffd1cc;
+	}
+
+	body.page-node-4854 input.form-submit,
+	#block-webform-client-block-4860 input.form-submit {
+		background-color: #02779e;
+		border: 1px solid white;
+		border-radius: 5px;
+		margin: 5px 0 0 67px;
+		padding: 5px 8px;
+	}
+
+	body.page-node-4854 input.form-submit:hover,
+	body.page-node-4854 input.form-submit:active,
+	body.page-node-4854 input.form-submit:focus,
+	#block-webform-client-block-4860 input.form-submit:hover,
+	#block-webform-client-block-4860 input.form-submit:active,
+	#block-webform-client-block-4860 input.form-submit:focus {
+		background-color: transparent;
+	}
+
+	@media only screen and (min-width : 768px) {
+		.footer2 iframe#subscribe-to-newsletter {
+			float: right;
+			width: 46%;
+			position: relative;
+			top: -298px;
+		}
+
+		#block-webform-client-block-4860 {
+			position: relative;
+			top: -299px;
+		}
+
+		.footer2 .contact,
+		.footer2 .creative-commons,
+		.footer2 .accessibility-info,
+		.footer2 .staff-links,
+		.footer2 .social,
+		.footer2 .land-acknowledgement {
+			text-align: left;
+		}
+
+		.footer2 .accessibility-info {
+			padding-left: 5px;
+			padding-right: 5px;
+		}
+	}
+
+	@media only screen and (min-width : 860px) {
+		.primary-map-fields {
+			width: 49%;
+			padding-right: 32px;
+			float: left;
+		}
+	}
+
+	@media only screen and (min-width: 992px) {
+		#block-webform-client-block-4860 {
+			position: relative;
+			top: -207px;
+		}
+
+		.footer2 iframe#subscribe-to-newsletter {
+			width: 34%;
+			top: -205px;
+		}
+	}
+
+	/* OCA styles */
+	body.oca ul {
+		margin-left: 20px;
+	}
+
+	body.oca div.region-sidebar {
+		width: 200px;
+		margin: 0 auto;
+	}
+
+	/* Libchat */
+	#libchat_d3813658438965a0df80a95fc6312cc4 {
+		position: fixed;
+		right: 35px;
+		bottom: 5px;
+	}
+
+	#libchat_d3813658438965a0df80a95fc6312cc4:hover {
+		filter: saturate(3);
+	}
+
+
+	/*
+ * LibGuides Content Styling
+ */
+	#s-lg-tabs-container .nav-tabs>li>a {
+		background-color: transparent;
+	}
+
+	#s-lg-guide-tabs .nav-tabs>li {
+		width: 250px;
+	}
+
+	/*vertical align guide side nav*/
+	#s-lg-guide-tabs .nav li {
+		float: none;
+	}
+
+	#lg-content-area ul.nav-tabs {
+		z-index: 10;
+		width: 85%;
+	}
+
+	#lg-content-area ul.nav-pills {
+		z-index: 10;
+	}
+
+	#s-lg-public-skiplink {
+		padding: 0px;
+	}
+
+	.s-lib-box .s-lib-box-title {
+		font-size: 18px;
+	}
+
+	#s-lg-guide-header-info h1,
+	.s-lib-header h1 {
+		margin-top: 50px;
+		margin-left: 15px;
+	}
+
+	#lg-content-area #content_container {
+		float: none;
+		margin: 0 auto;
+		max-width: 1350px;
+	}
+
+	#lg-content-area .s-lib-header {
+		float: clear;
+		margin: 0 auto 0 0;
+		max-width: 1350px;
+		padding-bottom: 25px;
+		padding-left: 10px;
+	}
+
+	#s-lg-guide-tabs {
+		padding-left: 0px;
+	}
+
+	.s-lib-box-content ul,
+	.s-lib-box-content ol {
+		padding-left: 20px;
+	}
+
+	#lg-content-area .nav-pills li>a:after {
+		content: "❯";
+		float: right;
+		margin-right: -12px;
 		padding-left: 5px;
 		padding-right: 5px;
 	}
-}
 
-@media only screen and (min-width : 860px) {
-	.primary-map-fields {
-		width: 49%;
-		padding-right: 32px;
-		float: left;
+	.s-lg-rss-list-item {
+		padding-bottom: 10px;
 	}
-}
-@media only screen and (min-width: 992px) {
-	#block-webform-client-block-4860 {
-		position: relative;
-		top: -207px;
+
+	#s-lg-guide-header-info h1 {
+		margin-left: 0px;
 	}
-	.footer2 iframe#subscribe-to-newsletter {
-		width: 34%;
-		top: -205px;
+
+	#s-lg-guide-main a {
+		font-weight: 500;
 	}
-}
 
-/* OCA styles */
-body.oca ul { margin-left: 20px; }
-body.oca div.region-sidebar {
-	width: 200px;
-	margin: 0 auto;
-}
+	.s-lg-er-item-list li,
+	.s-lg-link-list li,
+	.s-lg-system-list li {
+		padding-top: 10px;
+	}
 
-/* Libchat */
-#libchat_d3813658438965a0df80a95fc6312cc4 {
-	position: fixed;
-	right: 35px;
-	bottom: 5px;
-}
-#libchat_d3813658438965a0df80a95fc6312cc4:hover {
-	filter: saturate(3);
-}
+	#s-lg-guide-tabs-title-bar {
+		border-top: 0px;
+	}
 
+	#lg-content-area {
+		background-color: #fff;
+		margin-left: auto;
+		margin-right: auto;
+		display: table;
+		width: 100%;
+		max-width: 1350px;
+		border-left: 1px solid #DDD;
+		border-right: 1px solid #DDD;
+	}
 
-/*
- * LibGuides Content Styling
- */
-#s-lg-tabs-container .nav-tabs > li > a { background-color: transparent; }
-#s-lg-guide-tabs .nav-tabs > li { width: 250px; }
+	.fa-lg {
+		color: #00457c;
+	}
 
-/*vertical align guide side nav*/
-#s-lg-guide-tabs .nav li { float: none; }
+	#s-lg-guide-main {
+		padding-left: 15px;
+		padding-right: 15px;
+	}
 
-#lg-content-area ul.nav-tabs {
-z-index: 10;
-width:85%;
-}
+	#s-lg-guide-tabs .nav-tabs>li.active {
+		width: 252px;
+	}
 
-#lg-content-area ul.nav-pills { z-index: 10; }
-#s-lg-public-skiplink { padding: 0px; }
-.s-lib-box .s-lib-box-title { font-size: 18px; }
-#s-lg-guide-header-info h1, .s-lib-header h1 {
-margin-top: 50px;
-margin-left: 15px;
-}
+	/*hides down arrow for sub-menu items*/
+	a.s-lg-tab-drop.dropdown-toggle {
+		display: none;
+	}
 
-#lg-content-area #content_container {
-float: none;
-margin: 0 auto;
-max-width:1350px;
-}
+	/*hides Subject Homepage links in guides homepage*/
+	div.alert.alert-info.margin-top-med {
+		display: none;
+	}
 
-#lg-content-area .s-lib-header {
-float:clear;
-margin: 0 auto 0 0;
-max-width: 1350px;
-padding-bottom: 25px;
-padding-left:10px;
-}
+	/*hides Subjects drop-down filter in A-Z list*/
+	#s-lg-sel-subjects {
+		display: none;
+	}
 
-#s-lg-guide-tabs { padding-left:0px; }
-.s-lib-box-content ul, .s-lib-box-content ol { padding-left: 20px; }
+	/*hides sub-menu pop open on hover over*/
+	ul.s-lg-subtab-ul.dropdown-menu>li {
+		display: none;
+	}
 
-#lg-content-area .nav-pills li > a:after {
-content: "❯";
-float: right;
-margin-right: -12px;
-padding-left: 5px;
-padding-right: 5px;
-}
+	/*stops a page with sub-pages from expanding/contracting in the left menu*/
+	ul.s-lg-subtab-ul.dropdown-menu {
+		min-width: 0px;
+	}
 
-.s-lg-rss-list-item { padding-bottom:10px; }
-#s-lg-guide-header-info h1 { margin-left: 0px; }
-#s-lg-guide-main a { font-weight:500; }
+	/*adds gray bar to left of sub-menu items*/
+	.s-lg-tabs-side .s-lg-subtab-ul {
+		border-left: #DDDDDD solid 2px;
+	}
 
-.s-lg-er-item-list li, 
-.s-lg-link-list li, 
-.s-lg-system-list li { padding-top: 10px; }
+	/*reduces font size in gold Admin bar to keep page title visible*/
+	ul.nav.navbar-nav {
+		font-size: 12px;
+	}
 
-#s-lg-guide-tabs-title-bar { border-top: 0px; }
+	/* A11y fixes for embedded calendar */
+	.s-lg-guide-body .s-lc-whw-head-date {
+		color: #525252;
+	}
 
-#lg-content-area {
-background-color:#fff;
-margin-left:auto;
-margin-right:auto;
-display:table;
-width:100%;
-max-width:1350px;
-border-left: 1px solid #DDD;
-border-right: 1px solid #DDD;
-}
+	/* Tabbed navigation pages fixes */
+	.s-lib-jqtabs ul.nav-tabs {
+		padding: 0;
+		top: 7px;
+	}
 
-.fa-lg { color:#00457c; }
+	#lg-content-area .nav-tabs>li>a {
+		border: 1px solid #ddd;
+		padding: 10px 7px;
+	}
 
-#s-lg-guide-main {
-	padding-left:15px;
-	padding-right:15px;
-}
+	#lg-content-area .nav-tabs.nav-pills>li>a {
+		border: none;
+		padding: 4px 15px;
+	}
 
-#s-lg-guide-tabs .nav-tabs > li.active { width: 252px; }
+	.s-lib-jqtabs div.tab-content {
+		border-top: 1px solid #ddd;
+	}
 
-/*hides down arrow for sub-menu items*/
-a.s-lg-tab-drop.dropdown-toggle { display:none; }
-
-/*hides Subject Homepage links in guides homepage*/
-div.alert.alert-info.margin-top-med { display:none; }
-
-/*hides Subjects drop-down filter in A-Z list*/
-#s-lg-sel-subjects { display:none; }
-
-/*hides sub-menu pop open on hover over*/
-ul.s-lg-subtab-ul.dropdown-menu > li { display:none; }
-
-/*stops a page with sub-pages from expanding/contracting in the left menu*/
-ul.s-lg-subtab-ul.dropdown-menu { min-width:0px; }
-
-/*adds gray bar to left of sub-menu items*/
-.s-lg-tabs-side .s-lg-subtab-ul { border-left:#DDDDDD solid 2px; }
-
-/*reduces font size in gold Admin bar to keep page title visible*/ 
-ul.nav.navbar-nav { font-size:12px; }
-
-/* A11y fixes for embedded calendar */
-.s-lg-guide-body .s-lc-whw-head-date { color: #525252; }
-
-/* Tabbed navigation pages fixes */
-.s-lib-jqtabs ul.nav-tabs {
-padding: 0;
-top: 7px;
-}
-#lg-content-area .nav-tabs > li > a {
-border: 1px solid #ddd;
-padding:10px 7px;
-}
-#lg-content-area .nav-tabs.nav-pills > li > a {
-border: none;
-padding: 4px 15px;
-}
-.s-lib-jqtabs div.tab-content {
-border-top: 1px solid #ddd;
-}
-
-#lg-content-area p { margin-bottom:15px; }
+	#lg-content-area p {
+		margin-bottom: 15px;
+	}
 
 
-/*
+	/*
  * LibAnswers Content Styling
  */
-body.s-la-page-public { background-color: #fff; }
-#s-la-vote {display: none;}
-#s-la-box-47343 > div.s-la-box-title.s-la-box-title-simple.s-la-box-border-simple {display: none;}
-#s-la-box-47343 > div.s-la-box-content.clearfix {display: none;}
-#s-la-headerlinks .col-sm-6 { width: auto !important;}
-#s-la-box-50765 > div.s-la-box-title.s-la-box-title-simple.s-la-box-border-simple {display: none;}
-#s-la-box-50765 > div.s-la-box-content.clearfix {display: none;}
-#s-la-box-52340 > div.s-la-box-title.s-la-box-title-simple.s-la-box-border-simple {display: none;}
-#s-la-box-52340 > div.s-la-box-content.clearfix {display: none;}
+	body.s-la-page-public {
+		background-color: #fff;
+	}
 
-/*hides Facebook and twitter chicklet and print icon in answer display*/
-#s-la-faq-fblink,
-#s-la-faq-tweetlink,
-#s-la-faq-printlink {display:none;}
+	#s-la-vote {
+		display: none;
+	}
 
-/*Increase font size of question titles on Browse and Search Results page*/
-.s-la-page-public .s-srch-result-title {font-size:16px;}
+	#s-la-box-47343>div.s-la-box-title.s-la-box-title-simple.s-la-box-border-simple {
+		display: none;
+	}
 
-/*Decreases font size of question metadata on Browse/Home page*/
-.s-la-faq-listing-meta {font-size:12px;}
+	#s-la-box-47343>div.s-la-box-content.clearfix {
+		display: none;
+	}
 
-/*Decreases font size of question metadata on Question page*/
-.s-la-faq-meta {font-size:12px;}
+	#s-la-headerlinks .col-sm-6 {
+		width: auto !important;
+	}
 
-/*Hides the word "Answer" in a FAQ*/
-.s-la-faq-answer-header {display:none;}
+	#s-la-box-50765>div.s-la-box-title.s-la-box-title-simple.s-la-box-border-simple {
+		display: none;
+	}
 
-/*Hides h3 header "Topics" in topics section of FAQ*/
-.s-la-faq-topics h3 {display:none;}
+	#s-la-box-50765>div.s-la-box-content.clearfix {
+		display: none;
+	}
 
-/*Color contrast for a11y */
-.s-la-faq-listing-meta .divider {color: #595959;}
+	#s-la-box-52340>div.s-la-box-title.s-la-box-title-simple.s-la-box-border-simple {
+		display: none;
+	}
 
-/*LibAnswers Overrides*/
-.s-la-page-public .header-main .form-actions{
-	padding:0px;
-	margin-top:0px;
-	background-color:transparent;
-	border-top:none;
-}
-.s-la-page-public .header-main .form-actions:after,
-.s-la-page-public .header-main .form-actions:before {
-	display:inline;
-}
+	#s-la-box-52340>div.s-la-box-content.clearfix {
+		display: none;
+	}
+
+	/*hides Facebook and twitter chicklet and print icon in answer display*/
+	#s-la-faq-fblink,
+	#s-la-faq-tweetlink,
+	#s-la-faq-printlink {
+		display: none;
+	}
+
+	/*Increase font size of question titles on Browse and Search Results page*/
+	.s-la-page-public .s-srch-result-title {
+		font-size: 16px;
+	}
+
+	/*Decreases font size of question metadata on Browse/Home page*/
+	.s-la-faq-listing-meta {
+		font-size: 12px;
+	}
+
+	/*Decreases font size of question metadata on Question page*/
+	.s-la-faq-meta {
+		font-size: 12px;
+	}
+
+	/*Hides the word "Answer" in a FAQ*/
+	.s-la-faq-answer-header {
+		display: none;
+	}
+
+	/*Hides h3 header "Topics" in topics section of FAQ*/
+	.s-la-faq-topics h3 {
+		display: none;
+	}
+
+	/*Color contrast for a11y */
+	.s-la-faq-listing-meta .divider {
+		color: #595959;
+	}
+
+	/*LibAnswers Overrides*/
+	.s-la-page-public .header-main .form-actions {
+		padding: 0px;
+		margin-top: 0px;
+		background-color: transparent;
+		border-top: none;
+	}
+
+	.s-la-page-public .header-main .form-actions:after,
+	.s-la-page-public .header-main .form-actions:before {
+		display: inline;
+	}
 
 
-/*
+	/*
  * LibCal Content Styling
  */
-body.s-lc-public { background-color: #fff; }
-#s-lc-public-skiplink { padding: 0px; }
-.s-lc-public .breadcrumb {display:none;}
-#s-lc-public-footer {display:none;}
+	body.s-lc-public {
+		background-color: #fff;
+	}
 
-/*Decrease font size and line spacing of room booking box*/
-.s-lc-rm-box {
-  font-size:13px;
-  line-height: 1.5em;
-}
+	#s-lc-public-skiplink {
+		padding: 0px;
+	}
 
-#s-lc-rm-right {padding-left:25px;}
+	.s-lc-public .breadcrumb {
+		display: none;
+	}
 
-/*Decrease font size of room booking calendar*/
-#s-lc-rm-cal .ui-datepicker { font-size: 13px; }
+	#s-lc-public-footer {
+		display: none;
+	}
 
-.s-lc-public ol, 
-.s-lc-public ul { padding-left:20px; }
+	/*Decrease font size and line spacing of room booking box*/
+	.s-lc-rm-box {
+		font-size: 13px;
+		line-height: 1.5em;
+	}
 
-.s-lc-event-dl {
-    background-color: #eee;
-    border: none;
-}
+	#s-lc-rm-right {
+		padding-left: 25px;
+	}
 
-#s-lc-public-header-title { display:none; }
+	/*Decrease font size of room booking calendar*/
+	#s-lc-rm-cal .ui-datepicker {
+		font-size: 13px;
+	}
 
-/*set background of unavailable room to accessible magenta*/
-.lc_rm_u { background-color: #D41159;}
+	.s-lc-public ol,
+	.s-lc-public ul {
+		padding-left: 20px;
+	}
 
-/*set background of available room to accessible bright green*/
-.lc_rm_a { background-color:#1AFF1A; }
+	.s-lc-event-dl {
+		background-color: #eee;
+		border: none;
+	}
 
-/*set tentative booking selected room to bright yellow*/
-.lc_rm_t { background-color:#FFFC00; }
+	#s-lc-public-header-title {
+		display: none;
+	}
 
-/*set background color of outside of normal hours room to accessible blue*/
-.lc_rm_b { background-color:#1A85FF; }
+	/*set background of unavailable room to accessible magenta*/
+	.lc_rm_u {
+		background-color: #D41159;
+	}
 
-/* alert box a11y */
-.s-lc-public .alert-danger,
-.s-lc-public .alert-danger:hover { color: #6d1a17; }
+	/*set background of available room to accessible bright green*/
+	.lc_rm_a {
+		background-color: #1AFF1A;
+	}
 
-/*set color and style for room availability key*/
-.label-rm-avail {
-background-color:#1AFF1A; 
-color:#000; 
-font-weight:normal;
-}
+	/*set tentative booking selected room to bright yellow*/
+	.lc_rm_t {
+		background-color: #FFFC00;
+	}
+
+	/*set background color of outside of normal hours room to accessible blue*/
+	.lc_rm_b {
+		background-color: #1A85FF;
+	}
+
+	/* alert box a11y */
+	.s-lc-public .alert-danger,
+	.s-lc-public .alert-danger:hover {
+		color: #6d1a17;
+	}
+
+	/*set color and style for room availability key*/
+	.label-rm-avail {
+		background-color: #1AFF1A;
+		color: #000;
+		font-weight: normal;
+	}
 
 
-/*!
+	/*!
  * Yamm!3 - Yet another megamenu for Bootstrap 3
  * http://geedmo.github.com/yamm3
  *
  * @geedmo - Licensed under the MIT license
  */
-.yamm .nav,
-.yamm .collapse,
-.yamm .dropup,
-.yamm .dropdown {
-  position: static;
-}
-.yamm .container {
-  position: relative;
-}
-.yamm .dropdown-menu {
-  left: auto;
-}
-.yamm .yamm-content {
-  padding: 20px 30px;
-}
-.yamm .dropdown.yamm-fw .dropdown-menu {
-  left: 0;
-  right: 0;
-}
+	.yamm .nav,
+	.yamm .collapse,
+	.yamm .dropup,
+	.yamm .dropdown {
+		position: static;
+	}
+
+	.yamm .container {
+		position: relative;
+	}
+
+	.yamm .dropdown-menu {
+		left: auto;
+	}
+
+	.yamm .yamm-content {
+		padding: 20px 30px;
+	}
+
+	.yamm .dropdown.yamm-fw .dropdown-menu {
+		left: 0;
+		right: 0;
+	}
 </style>
