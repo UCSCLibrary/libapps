@@ -3,37 +3,49 @@ jQuery(document).ready(function() {
 	/* search form placeholder text */
 	jQuery('#edit-search-block-form--2').attr("placeholder", "Search this Site");
 
-	/* Check if we are on one of the event pages before calling functions above */
-	if (document.URL.includes("https://calendar.library.ucsc.edu/calendar/library-events")) {
-    	removeEventLinks();
-    	reformatMoreTags();
+	/* Check if we are on one of the event pages before processing events */
+	if (document.URL.includes("calendar.library.ucsc.edu/calendar/library-events")) {
+		var count = 0;
+		var processed = false;
+		var updateEvents = window.setInterval(function(){
+			if (processed || (count > 100)) {
+				clearInterval(updateEvents);
+			}
+    		processed = removeEventLinks();
+    		reformatMoreTags();
+    		count++;
+    	}, 100);
 	};
 });
+
 /* Remove Libcal Event link tags and tooltip styling */
 function removeEventLinks() {
-    // replace link tag with plain text
+    /* replace link tag with plain text */
     let remLinks = document.querySelectorAll(".s-lc-event-category-link");
-    if (typeof remLinks !== 'undefined') {
+    if (remLinks.length) {
         for (let i = 0; i < remLinks.length; i++) {
-            let txt = remLinks[i].children[0].textContent;
-            remLinks[i].innerHTML = txt;
+        	if (remLinks[i].children.length) {
+	            let txt = remLinks[i].children[0].textContent;
+    	        remLinks[i].innerHTML = txt;
+    	    }
         }
+        /* Disable tooltips */
+    	jQuery('.s-lc-event-category-link').tooltip('disable');
+    	return true;
     }
-
-    /* Disable tooltips */
-    jQuery('.s-lc-event-category-link').tooltip('disable');
+    return false;
 }
 
 /* On Libcal Events, change the more tag into multiple regular tags */
 function reformatMoreTags() {
     let lst = document.querySelectorAll(".s-lc-eventcard-tag-more");
     let tagColors = ["#58d13a", "#d13aab", "#d1ab3a", "#a13abd"];
-    if (typeof lst !== 'undefined') {
-        // In each more tag, get the tooltip titles
+    if (lst.length) {
+        /* In each more tag, get the tooltip titles */
         for (var i = 0; i < lst.length; i++) {
             let arr = lst[i].firstElementChild.dataset.originalTitle.split(",");
             let parent = lst[i].parentNode;
-            // Create a new li for each tag
+            /* Create a new li for each tag */
             for (var j = 0; j < arr.length; j++) {
                 let replacementLI = document.createElement("li");
                 replacementLI.classList.add("s-lc-eventcard-tag");
@@ -51,7 +63,6 @@ function reformatMoreTags() {
             };
         };
     }
-
 }
 
 </script>
