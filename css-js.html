@@ -2,7 +2,58 @@
 jQuery(document).ready(function() {
 	/* search form placeholder text */
 	jQuery('#edit-search-block-form--2').attr("placeholder", "Search this Site");
+
+	/* Check if we are on one of the event pages before calling functions above */
+	if (document.URL.includes("https://calendar.library.ucsc.edu/calendar/library-events")) {
+    	removeEventLinks();
+    	reformatMoreTags();
+	};
 });
+/* Remove Libcal Event link tags and tooltip styling */
+function removeEventLinks() {
+    // replace link tag with plain text
+    let remLinks = document.querySelectorAll(".s-lc-event-category-link");
+    if (typeof remLinks !== 'undefined') {
+        for (let i = 0; i < remLinks.length; i++) {
+            let txt = remLinks[i].children[0].textContent;
+            remLinks[i].innerHTML = txt;
+        }
+    }
+
+    /* Disable tooltips */
+    jQuery('.s-lc-event-category-link').tooltip('disable');
+}
+
+/* On Libcal Events, change the more tag into multiple regular tags */
+function reformatMoreTags() {
+    let lst = document.querySelectorAll(".s-lc-eventcard-tag-more");
+    let tagColors = ["#58d13a", "#d13aab", "#d1ab3a", "#a13abd"];
+    if (typeof lst !== 'undefined') {
+        // In each more tag, get the tooltip titles
+        for (var i = 0; i < lst.length; i++) {
+            let arr = lst[i].firstElementChild.dataset.originalTitle.split(",");
+            let parent = lst[i].parentNode;
+            // Create a new li for each tag
+            for (var j = 0; j < arr.length; j++) {
+                let replacementLI = document.createElement("li");
+                replacementLI.classList.add("s-lc-eventcard-tag");
+
+                var cindex = j % 4;
+
+                replacementLI.innerHTML = `
+                    <span class="s-lc-event-category-color" style="background-color:${tagColors[cindex]}">&nbsp;</span>
+                    <span class="s-lc-event-category-link" title="" data-original-title="${arr[j]}">
+                        ${arr[j]}
+                    </span>
+                    `;
+                parent.appendChild(replacementLI);
+                lst[i].remove();
+            };
+        };
+    }
+
+}
+
 </script>
 <script src="https://kit.fontawesome.com/28dac62ade.js" crossorigin="anonymous"></script>
 <style>
@@ -1003,6 +1054,18 @@ body.s-lc-public { background-color: #fff; }
 background-color:#1AFF1A; 
 color:#000; 
 font-weight:normal;
+}
+
+/* Display all tags for events */
+.s-lc-eventcard-tags {
+  position: relative;
+}
+.s-lc-eventcard-tags ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+.s-lc-eventcard-content {
+  height: 95%;
 }
 
 
