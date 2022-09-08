@@ -1,7 +1,7 @@
 <script>
 jQuery(document).ready(function() {
 	/* search form placeholder text */
-	jQuery('#edit-search-block-form--2').attr("placeholder", "Search this Site");
+	$('#search-block-form input.form-search').attr("placeholder", "Search this Site");
 
 	/* Check if we are on one of the event pages before processing events */
 	if (document.URL.includes("calendar.library.ucsc.edu/calendar/library-events")) {
@@ -11,10 +11,10 @@ jQuery(document).ready(function() {
 			if (processed || (count > 100)) {
 				clearInterval(updateEvents);
 			}
-    		processed = removeEventLinks();
-    		reformatMoreTags();
-    		count++;
-    	}, 100);
+			processed = removeEventLinks();
+			reformatMoreTags();
+			count++;
+		}, 100);
 	};
 });
 
@@ -22,16 +22,16 @@ jQuery(document).ready(function() {
 function removeEventLinks() {
     /* replace link tag with plain text */
     let remLinks = document.querySelectorAll(".s-lc-event-category-link");
-    if (remLinks.length) {
-        for (let i = 0; i < remLinks.length; i++) {
-        	if (remLinks[i].children.length) {
-	            let txt = remLinks[i].children[0].textContent;
-    	        remLinks[i].innerHTML = txt;
-    	    }
-        }
+	if (remLinks.length) {
+		for (let i = 0; i < remLinks.length; i++) {
+			if (remLinks[i].children.length) {
+				let txt = remLinks[i].children[0].textContent;
+				remLinks[i].innerHTML = txt;
+			}
+		}
         /* Disable tooltips */
-    	jQuery('.s-lc-event-category-link').tooltip('disable');
-    	return true;
+		jQuery('.s-lc-event-category-link').tooltip('disable');
+		return true;
     }
     return false;
 }
@@ -64,7 +64,6 @@ function reformatMoreTags() {
         };
     }
 }
-
 </script>
 <script src="https://kit.fontawesome.com/28dac62ade.js" crossorigin="anonymous"></script>
 <style>
@@ -183,28 +182,31 @@ html.js fieldset.collapsed {
 	font-size: 18px;
 	padding-left: 1px;
 }
+@media print {
+	.header-main { display: none; }
+}
 
 /* Main menu - top bar, not mega menu */
-.header-main-menu .content {
+.header-main-menu nav {
 	text-align: center;
 	display: block;
 }
 
-.header-main-menu ul {
+.header-main-menu ul.menu {
 	display: inline-block;
 	margin: 8px 0px;
 	background-color: #02779e;
 	padding: 3px 0px 4px 0px;
 }
 
-.header-main-menu ul.menu li.leaf {
+.header-main-menu ul.menu li {
 	display: inline-block;
 	list-style-type: none;
 	margin: 0px;
 	padding: 0px;
 }
 
-.header-main-menu ul li a {
+.header-main-menu ul.menu li a {
 	text-decoration: none;
 	color: #fff;
 	background-repeat: no-repeat;
@@ -214,59 +216,35 @@ html.js fieldset.collapsed {
 	font-size: 14px;
 }
 
-.header-main-menu ul li a:hover {
+.header-main-menu ul.menu li a:hover {
 	background-color: #ffcc33;
 	text-decoration: none;
 	color: #00457c;
 }
 
-.header-main-sitesearch {
+#block-searchform {
 	margin: 5px 0px;
+	text-align: center;
 }
 
-.header-main-sitesearch img {
-	display: inline;
-	cursor: pointer;
-}
-
-.header-main-sitesearch .form-submit {
+#search-block-form .form-submit {
   	display: none;
 }
 
-.header-main-sitesearch form .form-text {
+#search-block-form .form-search {
 	border: 1px solid #fff;
 	background-color: #fff;
-	color: #00457c;
+	background-image: none !important;
+	color: #84827c;
+	font-size: 15px;
 	font-weight: normal;
 	width: 138px;
-	height: 20px;
-	padding: 0px 8px;
-	margin: 0px;
-}
-
-.header-main-sitesearch form .form-hide {
-	display: none;
-}
-
-.header-main-sitesearch form .search {
-	padding: 0px 3px;
-}
-
-#search-block-form #edit-actions, 
-#search-block-form .form-item-search-block-form {
-	display:inline;
-}
-#edit-search-block-form--2 {
-	background-image:none !important;
-	font-size: 15px;
-    line-height: 140%;
-    padding: 4px;
-    color: #84827c;
 	height: 29px;
-	margin-top: -3px;
+	line-height: 140%;
+	padding: 4px;
+	margin: -3px 0 0 0;
 }
-
-#edit-search-block-form--2::placeholder {
+#search-block-form .form-search::placeholder {
     color: #84827c;
     opacity: 1;
 }
@@ -294,7 +272,7 @@ html.js fieldset.collapsed {
 		float: right;
 	}
 
-	.header-main-menu .content {
+	.header-main-menu nav {
 		text-align: center;
 		display: inline-block;
 	}
@@ -304,53 +282,53 @@ html.js fieldset.collapsed {
 		display: inline-block;
 	}
 
-	.header-main-menu ul {
+	.header-main-menu ul.menu {
 		display: inline-block;
 		margin: 0px 0px 0px 0px;
 		padding: 0px 0px 10px 10px;
 		background-color: transparent;
 	}
 
-	.header-main-menu ul.menu li.leaf {
+	.header-main-menu ul.menu li {
 		display: inline;
 		padding: 0px 10px 0px 0px;
 		list-style-type: none;
 		text-align: left;
 	}
 
-	.header-main-menu ul li a {
+	.header-main-menu ul.menu li a {
 		border: none;
 		background-color: transparent;
 	}
-	.header-main-menu ul li a:hover {
+	.header-main-menu ul.menu li a:hover {
 		text-decoration: underline;
 		background-color: transparent;
 		color: #fff;
 	}
 
-	.header-main-menu ul li a {
+	.header-main-menu ul.menu li a {
 		background-image: url('https://library.ucsc.edu/sites/default/files/external/images/golddot.png');
 		padding: 1px 0px 0px 16px;
 		background-position: 0% 55%;
 	}
 
-	.header-main-menu ul li a.hours {
+	.header-main-menu ul.menu li a.hours {
 		background-image: none;
 		padding: 1px 0px 0px 0px;
 	}
 
-	.header-main-sitesearch {
+	#block-searchform {
 		display: inline-block;
 		margin: 0px;
 	}
 
-	.header-main-sitesearch img {
-		margin: 0 auto;
-		display: inline-block;
-	}
-
-	.header-main-sitesearch form .form-text {
+	#search-block-form .form-search {
 		margin: 0px 2px 0px 8px;
+	}
+}
+@media print {
+	.header-main-menu {
+		display: none;
 	}
 }
 
@@ -453,128 +431,128 @@ input {
 	}
 }
 /* Mega/Main menu */
-#block-block-34 .menu { margin: 10px 0; }
-#block-block-34 .menu,
-#block-block-34 .menu > li {
+#block-megamenu .menu { margin: 10px 0; }
+#block-megamenu .menu,
+#block-megamenu .menu > li {
 	display: block;
 	float: none;
 	margin-left: 0;
 }
-#block-block-34 .menu > li { border-top: 1px solid #fff; }
-#block-block-34 .menu > li.last { border-bottom: 1px solid #fff; }
-#block-block-34 .dropdown > a { color: #fff; }
-#block-block-34 .dropdown > a:hover,
-#block-block-34 .dropdown > a:active,
-#block-block-34 .dropdown > a:focus,
-#block-block-34 .open > a {
+#block-megamenu .menu > li { border-top: 1px solid #fff; }
+#block-megamenu .menu > li.last { border-bottom: 1px solid #fff; }
+#block-megamenu .dropdown > a { color: #fff; }
+#block-megamenu .dropdown > a:hover,
+#block-megamenu .dropdown > a:active,
+#block-megamenu .dropdown > a:focus,
+#block-megamenu .open > a {
 	text-decoration: none;
 	background-color: #ffcc33;
 	color: #000;
 }
-#block-block-34 a i { display: none; }
-#block-block-34 .dropdown-menu li { margin: 0 10px; }
-#block-block-34 .dropdown-menu a {
+#block-megamenu a i { display: none; }
+#block-megamenu .dropdown-menu li { margin: 0 10px; }
+#block-megamenu .dropdown-menu a {
 	display: block;
 	color: #fff;
 }
-#block-block-34 .dropdown-menu a:hover,
-#block-block-34 .dropdown-menu a:focus,
-#block-block-34 .dropdown-menu a:active {
+#block-megamenu .dropdown-menu a:hover,
+#block-megamenu .dropdown-menu a:focus,
+#block-megamenu .dropdown-menu a:active {
 	color: #262626;
 }
-#block-block-34 .dropdown-menu ul li {
+#block-megamenu .dropdown-menu ul li {
 	margin: 5px 0;
 	padding: 5px 0;
 	border-bottom: 1px dashed gray;
 	color: #fff;
 }
-#block-block-34 .dropdown-menu li:last-child li:last-child { border: none; }
-#block-block-34 .dropdown-menu ul li:hover a { color: #ffcc33; }
-#block-block-34 .dropdown-menu .menu-heading {
+#block-megamenu .dropdown-menu li:last-child li:last-child { border: none; }
+#block-megamenu .dropdown-menu ul li:hover a { color: #ffcc33; }
+#block-megamenu .dropdown-menu .menu-heading {
 	display: block;
 	font-size: 15px;
 	font-weight: bold;
 }
-#block-block-34 .dropdown-menu .menu-body { color: #ffcc33; }
+#block-megamenu .dropdown-menu .menu-body { color: #ffcc33; }
 
 @media all and (min-width: 768px) {
-	#block-block-34 .menu {
+	#block-megamenu .menu {
 		width: 660px;
 		margin: 0 auto;
 	}
-	#block-block-34 .menu > li {
+	#block-megamenu .menu > li {
 		float: left;
 		border: none;
 	}
-	#block-block-34 a i { display: inline-block; }
-	#block-block-34 .dropdown { position: relative; }
-	#block-block-34 .dropdown > a {
+	#block-megamenu a i { display: inline-block; }
+	#block-megamenu .dropdown { position: relative; }
+	#block-megamenu .dropdown > a {
 		font-size: 14px;
 		text-transform: uppercase;
 	}
-	#block-block-34 .dropdown > a span {
+	#block-megamenu .dropdown > a span {
 		display: block;
 		margin-top: 5px;
 		font-size: 12px;
 		text-transform: none;
 	}
-	#block-block-34 i.fas {
+	#block-megamenu i.fas {
 		color: #ffcc33;
 		padding-left: 2px;
 	}
-	#block-block-34 .dropdown-menu { padding: 10px 15px; }
-	#block-block-34 .dropdown-menu.three-col { width: 705px; }
-	#block-block-34 .dropdown-menu.two-col { width: 480px; }
-	#block-block-34 .right .dropdown-menu {
+	#block-megamenu .dropdown-menu { padding: 10px 15px; }
+	#block-megamenu .dropdown-menu.three-col { width: 705px; }
+	#block-megamenu .dropdown-menu.two-col { width: 480px; }
+	#block-megamenu .right .dropdown-menu {
 		left: auto;
 		right: 0;
 	}
-	#block-block-34 .dropdown-menu > li {
+	#block-megamenu .dropdown-menu > li {
 		float: left;
 		width: 225px;
 		margin: 0;
 	}
-	#block-block-34 .dropdown-menu ul li {
+	#block-megamenu .dropdown-menu ul li {
 		height: 80px;
 		margin: 0;
 		padding: 0;
 	}
-	#block-block-34 .dropdown-menu li:last-child li:last-child {
+	#block-megamenu .dropdown-menu li:last-child li:last-child {
 		border-bottom: 1px dashed gray;
 	}
-	#block-block-34 .dropdown-menu li:last-child li:last-child:hover,
-	#block-block-34 .dropdown-menu ul li:hover {
+	#block-megamenu .dropdown-menu li:last-child li:last-child:hover,
+	#block-megamenu .dropdown-menu ul li:hover {
 		border-bottom: 3px solid #ffcc33;
 	}
-	#block-block-34 .dropdown-menu ul li:hover .menu-heading {
+	#block-megamenu .dropdown-menu ul li:hover .menu-heading {
 		color: #000;
 	}
-	#block-block-34 .dropdown-menu a {
+	#block-megamenu .dropdown-menu a {
 		white-space: normal;
 		height: 100%;
 	}
-	#block-block-34 .dropdown-menu .menu-heading {
+	#block-megamenu .dropdown-menu .menu-heading {
 		padding: 10px 15px 0 0;
 		font-size: 14px;
 		color: #02779e;
 	}
-	#block-block-34 .dropdown-menu .menu-body {
+	#block-megamenu .dropdown-menu .menu-body {
 		padding: 0 15px 10px 0;
 		font-size: 12px;
 		color: #000;
 	}
 }
 @media all and (min-width: 860px) {
-	#block-block-34 .menu {
+	#block-megamenu .menu {
 		width: auto;
 		float: right;
 		margin: 0;
 	}
-	#block-block-34 .dropdown.first .dropdown-menu { left: -40px; }
+	#block-megamenu .dropdown.first .dropdown-menu { left: -40px; }
 }
 @media all and (min-width: 1020px) { 
-	#block-block-34 .dropdown > a { font-size: 18px; }
-	#block-block-34 .dropdown.first .dropdown-menu { left: auto; }
+	#block-megamenu .dropdown > a { font-size: 18px; }
+	#block-megamenu .dropdown.first .dropdown-menu { left: auto; }
 }
 
 /* Other styles */
@@ -696,84 +674,77 @@ input {
 .footer2 .land-acknowledgement {
 	text-align: center;
 }
-
 .footer2 address { text-transform: none; }
 .footer2 .land-acknowledgement {
 	margin-top: 30px;
 	text-transform: none;
 }
-
 .footer2 .land-acknowledgement a {
 	text-decoration:  underline;
 }
 
+@media print {
+	.footer2 .accessibility-info,
+	.footer2 .staff-links,
+	.footer2 .social,
+	.footer2 .land-acknowledgement {
+		display: none;
+	}
+}
+
 /* Newsletter subscribe web form
- * Two forms: The two forms enable two types of confirmation message for iframe support
- * 4854 is for iframing in Libapps, 4861 is confirmation page
- * 4860 is webform for drupal site
+ * #subscribe-to-newsletter and .webform-share-page-body are for iframing in LibApps
+ * #block-subscribe-newsletter is the block in drupal
  * 
+ * .webform-share-page-body is generic for all iframed webforms in D9, so be aware
+ * of future shared webforms
  */
+
 iframe#subscribe-to-newsletter {
 	width: 100%;
 	height: 420px;
 	border: 0px none;
 }
-body.page-node-4854.logged-in,
-body.page-node-4861.logged-in {
-	padding-top: 30px !important;
-}
-body.page-node-4854,
-body.page-node-4861,
-#block-webform-client-block-4860 {
+body.webform-share-page-body,
+#block-subscribe-newsletter {
 	float: right;
 	margin: 25px 15px;
 	background-color: #00457c !important;
 	color: #fff;
 }
-body.page-node-4854.page-node-done {
-	float: none;
-	margin: 0px;
-	color: #000;
-}
-body.page-node-4854 h1,
-#block-webform-client-block-4860 h2 {
+body.webform-share-page-body h1,
+#block-subscribe-newsletter h2 {
 	font-size: 20px;
 	font-weight: bold;
 	text-transform: uppercase;
 }
-body.page-node-4854 input.form-text,
-#block-webform-client-block-4860 input.form-text {
+body.webform-share-page-body input.form-text,
+body.webform-share-page-body input.form-email,
+#block-subscribe-newsletter input.form-text,
+#block-subscribe-newsletter input.form-email {
 	width: 220px;
 	color: #444;
 }
-body.page-node-4854 label,
-#block-webform-client-block-4860 label {
+body.webform-share-page-body label,
+#block-subscribe-newsletter label {
 	display: inline-block;
-	width: 50px;
+	width: 70px;
 	font-size: 13px;
 }
-body.page-node-4854 .description,
-#block-webform-client-block-4860 .description {
-	margin-left: 70px;
-}
-body.page-node-4854 .form-required,
-#block-webform-client-block-4860 .form-required {
-	color: #ffd1cc;
-}
-body.page-node-4854 input.form-submit,
-#block-webform-client-block-4860 input.form-submit {
+body.webform-share-page-body input.form-submit,
+#block-subscribe-newsletter input.form-submit {
 	background-color: #02779e;
 	border: 1px solid white;
 	border-radius: 5px;
 	margin: 5px 0 0 67px;
 	padding: 5px 8px;
 }
-body.page-node-4854 input.form-submit:hover,
-body.page-node-4854 input.form-submit:active,
-body.page-node-4854 input.form-submit:focus,
-#block-webform-client-block-4860 input.form-submit:hover,
-#block-webform-client-block-4860 input.form-submit:active,
-#block-webform-client-block-4860 input.form-submit:focus {
+body.webform-share-page-body input.form-submit:hover,
+body.webform-share-page-body input.form-submit:active,
+body.webform-share-page-body input.form-submit:focus,
+#block-subscribe-newsletter input.form-submit:hover,
+#block-subscribe-newsletter input.form-submit:active,
+#block-subscribe-newsletter input.form-submit:focus {
 	background-color: transparent;
 }
 
@@ -784,13 +755,13 @@ body.page-node-4854 input.form-submit:focus,
 }
 
 @media only screen and (min-width : 768px) {
-	.footer2 iframe#subscribe-to-newsletter {
-		float: right;
+	footer2 iframe#subscribe-to-newsletter {
+ 		float: right;
 		width: 46%;
 		position: relative;
 		top: -298px;
-	}
-	#block-webform-client-block-4860 {
+ 	}
+	#block-subscribe-newsletter {
 		position: relative;
 		top: -299px;
 	}
@@ -816,14 +787,22 @@ body.page-node-4854 input.form-submit:focus,
 		float: left;
 	}
 }
+
 @media only screen and (min-width: 992px) {
-	#block-webform-client-block-4860 {
+	#block-subscribe-newsletter {
 		position: relative;
 		top: -207px;
 	}
 	.footer2 iframe#subscribe-to-newsletter {
-		width: 34%;
+		width:  35%;
 		top: -205px;
+	}
+}
+
+@media print {
+	#block-subscribe-newsletter,
+	body.webform-share-page-body {
+		display: none;
 	}
 }
 
@@ -839,9 +818,15 @@ body.oca div.region-sidebar {
 	position: fixed;
 	right: 35px;
 	bottom: 5px;
+	z-index: 5;
 }
 #libchat_d3813658438965a0df80a95fc6312cc4:hover {
 	filter: saturate(3);
+}
+@media print {
+	#libchat_d3813658438965a0df80a95fc6312cc4 {
+		display: none;
+	}
 }
 
 

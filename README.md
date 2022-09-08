@@ -18,8 +18,8 @@ Note that most of the code there is legacy and is not copied here.
 ## Updating the header
 
 To update the header, look at the source code of the main website. Copy
-from the `<!-- Header -->` tag down to the closing div just before the
-`<!-- Page -->` tag.
+from the `<div class="header">` tag down to the closing div just before the
+`<div id="main-content">` tag.
 
 IMPORTANT: Update the URL of the search form. It should look like:
     <form class="google-cse" action="https://library.ucsc.edu/" method="post" id="search-block-form" accept-charset="UTF-8">
