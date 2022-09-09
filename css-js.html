@@ -113,12 +113,14 @@ div.box h2 { margin-top: 10px; }
     clear: both;
     visibility: hidden;
 }
-.element-invisible {
-    position: absolute !important;
-    clip: rect(1px 1px 1px 1px);
-    clip: rect(1px, 1px, 1px, 1px);
-    overflow: hidden;
-    height: 1px;
+.element-invisible,
+.visually-hidden {
+  position: absolute !important;
+  overflow: hidden;
+  clip: rect(1px,1px,1px,1px);
+  width: 1px;
+  height: 1px;
+  word-wrap: normal;
 }
 h1.page-title {
 	font-size: 1.55em;
@@ -705,7 +707,7 @@ iframe#subscribe-to-newsletter {
 	height: 420px;
 	border: 0px none;
 }
-body.webform-share-page-body,
+iframe#subscribe-to-newsletter,
 #block-subscribe-newsletter {
 	float: right;
 	margin: 25px 15px;
@@ -754,12 +756,12 @@ body.webform-share-page-body input.form-submit:focus,
 	}
 }
 
-@media only screen and (min-width : 768px) {
-	footer2 iframe#subscribe-to-newsletter {
+@media only screen and (min-width: 768px) {
+	.footer2 iframe#subscribe-to-newsletter {
  		float: right;
 		width: 46%;
 		position: relative;
-		top: -298px;
+		top: -296px;
  	}
 	#block-subscribe-newsletter {
 		position: relative;
@@ -794,8 +796,9 @@ body.webform-share-page-body input.form-submit:focus,
 		top: -207px;
 	}
 	.footer2 iframe#subscribe-to-newsletter {
+		position: relative;
 		width:  35%;
-		top: -205px;
+		top: -204px;
 	}
 }
 
