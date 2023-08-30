@@ -22,7 +22,7 @@ from the `<div class="header">` tag down to the closing div just before the
 `<div id="main-content">` tag.
 
 IMPORTANT: Update the URL of the search form. It should look like:
-    <form class="google-cse" action="https://library.ucsc.edu/" method="post" id="search-block-form" accept-charset="UTF-8">
+    `<form class="google-cse" action="https://library.ucsc.edu/" method="post" id="search-block-form" accept-charset="UTF-8">`
 
 ## Updating the footer
 
