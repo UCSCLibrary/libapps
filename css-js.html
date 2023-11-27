@@ -16,7 +16,68 @@ jQuery(document).ready(function() {
 			count++;
 		}, 100);
 	};
+
+	/* Initialize the megamenu behavior */
+	menuResizeEvent();
+
+	/* Megamenu hover effects
+	 * Defaults are set with css, for users without javascript
+	 */
+	// Hover effects for individual menu items
+	$('#block-megamenu .dropdown-menu li').hover(function () {
+		// set links in all columns to #ccc
+		$('#block-megamenu').find('.dropdown-menu span').css('color', '#ccc');
+		// set links in own column to #fff
+		$(this).parent().find('span').css('color', '#fff');
+		// hover effect for parent category (can remove with :has support in firefox)
+    	$(this).parent().prev().css({"background-color": "#ffcc33", "color": "#000"});
+    }, function () {
+        // set links in all columns to #fff, in case focus leaves whole menu
+		$('#block-megamenu').find('.dropdown-menu span').css('color', '#fff');
+		// hover effect for parent category (can remove with :has support in firefox)
+    	$(this).parent().prev().css({"background-color": "inherit", "color": "#fff"});
+    });
+    // Hover effects for top-level menu categories
+    // Manually set the hover effect because the above code sets it on the element,
+    // which overwrites the existing css rule (global.css line ~455).
+	$('#block-megamenu .dropdown-toggle').hover(function() {
+		// this override of css can be removed when firefox supports :has
+		$(this).css({ "background-color": "#ffcc33", "color": "#000" });
+		// set links in all columns to #ccc
+		$('#block-megamenu').find('.dropdown-menu span').css('color', '#ccc');
+		// set links in own column to #fff
+		$(this).next().children().find('span').css('color', '#fff');
+    }, function () {
+    	// this override of css can be removed when firefox supports :has
+        $(this).css({ "background-color": "inherit", "color": "#fff" });
+        // set links in all columns to #fff, in case focus leaves whole menu
+		$('#block-megamenu').find('.dropdown-menu span').css('color', '#fff');
+	});
 });
+
+// Debounce function for window resizing
+// Currently used to swap megamenu behavior
+var menuResizeTimer;
+window.onresize = function(){
+	clearTimeout(menuResizeTimer);
+	menuResizeTimer = setTimeout(menuResizeEvent, 100);
+};
+
+/* Megamenu behavior changes on window resize
+ * Desktop: all dropdowns open at once
+ * Mobile: one dropdown open at a time
+ */
+function menuResizeEvent(){
+	if (jQuery(window).width() < 768) {
+		jQuery('#block-megamenu .dropdown-toggle').each(function () {
+			jQuery(this).attr('data-target','dropdown');
+		});
+	} else {
+		jQuery('#block-megamenu .dropdown-toggle').each(function () {
+			jQuery(this).attr('data-target','#navbar-collapse-1 .dropdown');
+		});
+	}
+}
 
 /* Remove Libcal Event link tags and tooltip styling */
 function removeEventLinks() {
@@ -253,28 +314,22 @@ html.js fieldset.collapsed {
 }
 
 @media all and (min-width : 860px) {
-	.header-main h1 {
-		font-size: 1px;
-	}
-
-	.header-main h1 .site-title-mobile {
-		display: none;
-	}
-
 	.header-main {
 		padding: 10px 10px 4px 10px;
 		height: 45px;
 	}
-
 	.header-main h1 {
+		font-size: 1px;
 		margin: 0px;
 		float: left;
 	}
-
+	.header-main h1 .site-title-mobile {
+		float: right;
+		margin: 4px 0 4px 15px;
+	}
 	.header-main-menu {
 		float: right;
 	}
-
 	.header-main-menu nav {
 		text-align: center;
 		display: inline-block;
@@ -327,6 +382,11 @@ html.js fieldset.collapsed {
 
 	#search-block-form .form-search {
 		margin: 0px 2px 0px 8px;
+	}
+}
+@media all and (min-width : 980px) {
+	.header-main h1 .site-title-mobile {
+		display: none;
 	}
 }
 @media print {
@@ -410,13 +470,17 @@ input {
 		background-color: #02779e;
 		overflow: visible;
 	}
-	.navbar { margin-bottom: 20px; }
+	.navbar {
+		display: flex;
+		justify-content: space-between;
+	}
 	.navbar-toggle { display: none; }
 }
-@media all and (min-width: 860px) {
+@media all and (min-width: 980px) {
 	.header-secondary a.navbar-brand {
 		display: block;
 		padding: 8px;
+		height: auto;
 		max-width: 170px;
 		font-size: 24px;
 		color: #fff;
@@ -424,139 +488,121 @@ input {
 		text-decoration: none;
 		letter-spacing: 0.035em;
 		line-height: 1.1;
-		z-index: 9;		
+		z-index: 9;
 	}
 }
-@media all and (min-width: 951px) {
+@media all and (min-width: 1080px) {
 	.header-secondary a.navbar-brand {
 		font-size: 2.225em;
-		max-width: 200px;
+		max-width: 250px;
 	}
 }
 /* Mega/Main menu */
+#block-megamenu .navbar::before,
+#block-megamenu .navbar::after { display: none; }
 #block-megamenu .menu { margin: 10px 0; }
 #block-megamenu .menu,
-#block-megamenu .menu > li {
+#block-megamenu .menu .dropdown {
 	display: block;
 	float: none;
-	margin-left: 0;
 }
-#block-megamenu .menu > li { border-top: 1px solid #fff; }
-#block-megamenu .menu > li.last { border-bottom: 1px solid #fff; }
-#block-megamenu .dropdown > a { color: #fff; }
+#block-megamenu .dropdown > a {
+	cursor: pointer;
+	color: #fff;
+	font-size: 16px;
+	text-transform: uppercase;
+}
 #block-megamenu .dropdown > a:hover,
 #block-megamenu .dropdown > a:active,
-#block-megamenu .dropdown > a:focus,
-#block-megamenu .open > a {
+#block-megamenu .dropdown > a:focus {
 	text-decoration: none;
 	background-color: #ffcc33;
 	color: #000;
 }
-#block-megamenu a i { display: none; }
-#block-megamenu .dropdown-menu li { margin: 0 10px; }
-#block-megamenu .dropdown-menu a {
-	display: block;
+#block-megamenu .open > a { background-color: inherit; }
+#block-megamenu .dropdown-menu {
+	margin: 0 35px;
+}
+#block-megamenu .dropdown-menu a span {
 	color: #fff;
+	border-bottom: 2px solid transparent;
 }
 #block-megamenu .dropdown-menu a:hover,
 #block-megamenu .dropdown-menu a:focus,
 #block-megamenu .dropdown-menu a:active {
-	color: #262626;
+	background: none;
 }
-#block-megamenu .dropdown-menu ul li {
-	margin: 5px 0;
-	padding: 5px 0;
-	border-bottom: 1px dashed gray;
-	color: #fff;
+#block-megamenu .dropdown-menu a:hover span,
+#block-megamenu .dropdown-menu a:focus span,
+#block-megamenu .dropdown-menu a:active span {
+	border-color: #ffcc33;
 }
-#block-megamenu .dropdown-menu li:last-child li:last-child { border: none; }
-#block-megamenu .dropdown-menu ul li:hover a { color: #ffcc33; }
-#block-megamenu .dropdown-menu .menu-heading {
-	display: block;
-	font-size: 15px;
-	font-weight: bold;
+#block-megamenu .dropdown-menu > li > a {
+	white-space: inherit;
+	padding: 10px 20px;
 }
-#block-megamenu .dropdown-menu .menu-body { color: #ffcc33; }
 
 @media all and (min-width: 768px) {
 	#block-megamenu .menu {
-		width: 660px;
-		margin: 0 auto;
-	}
-	#block-megamenu .menu > li {
-		float: left;
-		border: none;
-	}
-	#block-megamenu a i { display: inline-block; }
-	#block-megamenu .dropdown { position: relative; }
-	#block-megamenu .dropdown > a {
-		font-size: 14px;
-		text-transform: uppercase;
-	}
-	#block-megamenu .dropdown > a span {
-		display: block;
-		margin-top: 5px;
-		font-size: 12px;
-		text-transform: none;
-	}
-	#block-megamenu i.fas,
-	#block-megamenu .svg-inline--fa {
-		color: #ffcc33;
-		padding-left: 2px;
-	}
-	#block-megamenu .dropdown-menu { padding: 10px 15px; }
-	#block-megamenu .dropdown-menu.three-col { width: 705px; }
-	#block-megamenu .dropdown-menu.two-col { width: 480px; }
-	#block-megamenu .right .dropdown-menu {
-		left: auto;
-		right: 0;
-	}
-	#block-megamenu .dropdown-menu > li {
-		float: left;
-		width: 225px;
-		margin: 0;
-	}
-	#block-megamenu .dropdown-menu ul li {
-		height: 80px;
-		margin: 0;
-		padding: 0;
-	}
-	#block-megamenu .dropdown-menu li:last-child li:last-child {
-		border-bottom: 1px dashed gray;
-	}
-	#block-megamenu .dropdown-menu li:last-child li:last-child:hover,
-	#block-megamenu .dropdown-menu ul li:hover {
-		border-bottom: 3px solid #ffcc33;
-	}
-	#block-megamenu .dropdown-menu ul li:hover .menu-heading {
-		color: #000;
-	}
-	#block-megamenu .dropdown-menu a {
-		white-space: normal;
+		display: flex;
+		align-items: stretch;
 		height: 100%;
+		margin: 0;
 	}
-	#block-megamenu .dropdown-menu .menu-heading {
-		padding: 10px 15px 0 0;
-		font-size: 14px;
-		color: #02779e;
+	#block-megamenu .dropdown {
+		display: flex;
 	}
-	#block-megamenu .dropdown-menu .menu-body {
-		padding: 0 15px 10px 0;
+	#block-megamenu .dropdown > a {
+		display: flex;
+		align-items: center;
 		font-size: 12px;
+		font-weight: bold;
+		height: 100%;
+		max-width: 182px;
+	}
+	#block-megamenu .dropdown > a.teaching { max-width: 215px; }
+	#block-megamenu .dropdown:last-child > a { padding-right: 36px; }
+	#block-megamenu .dropdown-menu {
+		min-width: auto;
+  		width: 100%;
+  		height: 435px;
+  		margin: 0;
+  		border-radius: 0;
+  		box-shadow: 0px 4px 4px -4px #222;
+  		background: rgba(57, 81, 123, 0.9);
+		backdrop-filter: blur(5px);
+	}
+	#block-megamenu .dropdown-menu a span {
+		color: #ccc;
+		font-weight: bold;
+	}
+	#block-megamenu .dropdown-menu a:hover span,
+	#block-megamenu .dropdown-menu a:focus span,
+	#block-megamenu .dropdown-menu a:active span,
+	#block-megamenu .dropdown-menu:hover a span,
+	#block-megamenu a.dropdown-toggle:hover ~ ul li a span {
+		color: #fff;
+	}
+	/* Not yet supported in Firefox, workaround in spencer.js */
+	#block-megamenu a.dropdown-toggle:has(+ .dropdown-menu:hover) {
+		background-color: #ffcc33;
 		color: #000;
 	}
 }
-@media all and (min-width: 860px) {
-	#block-megamenu .menu {
-		width: auto;
-		float: right;
-		margin: 0;
-	}
-	#block-megamenu .dropdown.first .dropdown-menu { left: -40px; }
+@media all and (min-width: 870px) {
+	#block-megamenu .dropdown > a { font-size: 12px; }
+	#block-megamenu .dropdown-menu { height: 396px; }
 }
-@media all and (min-width: 1020px) { 
-	#block-megamenu .dropdown > a { font-size: 18px; }
-	#block-megamenu .dropdown.first .dropdown-menu { left: auto; }
+@media all and (min-width: 980px) {
+	#block-megamenu .dropdown-menu { height: 435px; }
+	#block-megamenu .dropdown > a.find { max-width: 188px; }
+}
+@media all and (min-width: 1110px) {
+	#block-megamenu .dropdown-menu { height: 380px; }
+	#block-megamenu .dropdown > a { font-size: 14px; }
+}
+@media all and (min-width: 1215px) {
+	#block-megamenu .dropdown > a { font-size: 16px; }
 }
 
 /* Other styles */
@@ -1075,32 +1121,5 @@ font-weight:normal;
 }
 .s-lc-eventcard-content {
   height: 95%;
-}
-
-
-/*!
- * Yamm!3 - Yet another megamenu for Bootstrap 3
- * http://geedmo.github.com/yamm3
- *
- * @geedmo - Licensed under the MIT license
- */
-.yamm .nav,
-.yamm .collapse,
-.yamm .dropup,
-.yamm .dropdown {
-  position: static;
-}
-.yamm .container {
-  position: relative;
-}
-.yamm .dropdown-menu {
-  left: auto;
-}
-.yamm .yamm-content {
-  padding: 20px 30px;
-}
-.yamm .dropdown.yamm-fw .dropdown-menu {
-  left: 0;
-  right: 0;
 }
 </style>
