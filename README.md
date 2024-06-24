@@ -1,6 +1,8 @@
 # LibApps for UCSC Library
 
-This repo holds the custom CSS, javascript, header and footer for UCSC's LibApps.
+This repo holds the custom CSS, javascript, header and footer for UCSC's
+LibApps. The main branch is on Bootstrap 3 and currently covers all Libapps,
+except for the LibGuides A-Z, which is on the bootstrap5 branch.
 
 ## Updating CSS
 
