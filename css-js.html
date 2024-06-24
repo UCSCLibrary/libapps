@@ -1,4 +1,9 @@
 <script>
+// Make these global for convenience
+let ucscdropdownElementList = null;
+let ucscdropdownList = [];
+let ucscMegaMenu = null;
+
 jQuery(document).ready(function() {
 	/* search form placeholder text */
 	$('#search-block-form input.form-search').attr("placeholder", "Search this Site");
@@ -16,6 +21,11 @@ jQuery(document).ready(function() {
 			count++;
 		}, 100);
 	};
+
+	// Bootstrap 5 variabes for A-Z list megamenu
+	ucscdropdownElementList = document.querySelectorAll('#navbar-collapse-1 .dropdown-toggle');
+	ucscdropdownList = [...ucscdropdownElementList].map(dropdownToggleEl => new bootstrap.Dropdown(dropdownToggleEl));
+	ucscMegaMenu = document.getElementById('navbar-collapse-1');
 
 	/* Initialize the megamenu behavior */
 	menuResizeEvent();
@@ -55,6 +65,23 @@ jQuery(document).ready(function() {
 	});
 });
 
+// Bootstrap 5 megamenu for A-Z list
+function toggleMegaMenu(e) {
+	// Prevent recursion when toggling the other menus
+	ucscMegaMenu.removeEventListener('hide.bs.dropdown', toggleMegaMenu, false);
+	ucscMegaMenu.removeEventListener('show.bs.dropdown', toggleMegaMenu, false);
+
+	// Bootstrap will toggle the triggering menu, so we toggle the others here
+	ucscdropdownList.forEach(function (drop) {
+		if(e.target != drop._element) {
+			drop.toggle();
+		}
+	});
+	// Add the listener back
+	ucscMegaMenu.addEventListener('hide.bs.dropdown', toggleMegaMenu, false);
+	ucscMegaMenu.addEventListener('show.bs.dropdown', toggleMegaMenu, false);
+}
+
 // Debounce function for window resizing
 // Currently used to swap megamenu behavior
 var menuResizeTimer;
@@ -72,10 +99,16 @@ function menuResizeEvent(){
 		jQuery('#block-megamenu .dropdown-toggle').each(function () {
 			jQuery(this).attr('data-target','dropdown');
 		});
+		// BS 5
+		ucscMegaMenu.removeEventListener('hide.bs.dropdown', toggleMegaMenu, false);
+		ucscMegaMenu.removeEventListener('show.bs.dropdown', toggleMegaMenu, false);
 	} else {
 		jQuery('#block-megamenu .dropdown-toggle').each(function () {
 			jQuery(this).attr('data-target','#navbar-collapse-1 .dropdown');
 		});
+		// BS 5
+		ucscMegaMenu.addEventListener('show.bs.dropdown', toggleMegaMenu, false);
+		ucscMegaMenu.addEventListener('hide.bs.dropdown', toggleMegaMenu, false);
 	}
 }
 
@@ -221,6 +254,7 @@ html.js fieldset.collapsed {
 	margin: 0 auto;
 	border-left: 1px solid #444;
 	border-right: 1px solid #444;
+	font-family: Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 .header-main {
@@ -446,7 +480,9 @@ input {
  */
 .navbar { margin-bottom: 0; }
 .header-secondary { background-color: #00457c; }
-.navbar-toggle {
+/* TODO: navbar-toggle is bootstrap 3 (-toggler is BS 5). retire -toggle when possible */
+.navbar-toggle,
+.navbar-toggler {
 	display: block;
 	margin: 8px auto;
 	color: #fff;
@@ -471,6 +507,7 @@ input {
 	.navbar {
 		display: flex;
 		justify-content: space-between;
+		padding: 0;
 	}
 	.navbar-toggle { display: none; }
 }
@@ -487,6 +524,7 @@ input {
 		letter-spacing: 0.035em;
 		line-height: 1.1;
 		z-index: 9;
+		white-space: wrap;
 	}
 }
 @media all and (min-width: 1080px) {
@@ -569,7 +607,7 @@ input {
   		margin: 0;
   		border-radius: 0;
   		box-shadow: 0px 4px 4px -4px #222;
-  		background: rgba(57, 81, 123, 0.9);
+  		background: rgba(57, 81, 123, 0.9) !important;
 		backdrop-filter: blur(5px);
 	}
 	#block-megamenu .dropdown-menu a span {
@@ -603,6 +641,47 @@ input {
 }
 @media all and (min-width: 1215px) {
 	#block-megamenu .dropdown > a { font-size: 16px; }
+}
+
+/* Megamenu for Bootstrap 5 A-Z list */
+#block-megamenu .navbar-expand-md { display: block; }
+#block-megamenu .navbar-collapse {
+	border-top: 1px solid transparent;
+	-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
+  	box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
+	padding-left: 15px;
+	padding-right: 15px
+ }
+#block-megamenu .navbar-toggler:focus { box-shadow: none; }
+#block-megamenu .show > a { background-color: inherit; }
+#block-megamenu .dropdown > a.dropdown-toggle {
+	padding: 10px 15px;
+	white-space: normal;
+	display: block;
+}
+#block-megamenu .dropdown > a.dropdown-toggle::after { display: none; }
+#block-megamenu .dropdown-menu { background-color: transparent; }
+#block-megamenu .dropdown-menu > li > a { display: block; }
+
+@media all and (min-width: 768px) {
+	#block-megamenu .navbar-expand-md {
+		display: flex;
+		align-items: stretch;
+	}
+	#block-megamenu .dropdown > a.dropdown-toggle {
+		padding: 15px 15px;
+		display: flex;
+	}
+	#block-megamenu .navbar-collapse.collapse {
+    	display: block !important;
+    	flex-grow: inherit;
+    	height: auto !important;
+    	border-top: 0;
+    	box-shadow: none;
+    	-webkit-box-shadow: none;
+   		padding-bottom: 0;
+    	overflow: visible !important;
+  }
 }
 
 /* Other styles */
@@ -659,6 +738,7 @@ input {
 #s-lib-footer-public div {
 	background-color: #00457c;
 	color: #fff;
+	font-family: Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 .footer a,
@@ -1008,6 +1088,20 @@ border-top: 1px solid #ddd;
   width: 1em;
 }
 #s-lib-scroll-top svg.fa-angle-double-up { position: absolute !important; }
+
+/* Bootstrap 5 A-Z list styles */
+#s-lib-public-main,
+#s-lib-public-header { background-color: #fff; }
+body #s-lib-public-header {
+	padding-top: 2.188rem;
+	padding-bottom: 1.25rem;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+#s-lib-public-header-title {
+	margin-top: 0;
+	margin-left: 0;
+}
 
 
 /*
