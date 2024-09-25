@@ -742,12 +742,30 @@ input {
 	}
 }
 
+/* Iframe embedded Webforms */
+body.webform-share-page-body label {
+	display: inline-block;
+	width: 100%;
+}
+body.webform-share-page-body label.option { display: inline; }
+body.webform-share-page-body input.form-submit {
+	background-color: #00458c;
+	color: #fff;
+	margin: auto .5em 14px 0;
+	padding: 5px 8px;
+	border: 2px solid #00458c;
+	border-radius: 5px;
+}
+body.webform-share-page-body #edit-actions input.form-submit:hover,
+body.webform-share-page-body #edit-actions input.form-submit:active,
+body.webform-share-page-body #edit-actions input.form-submit:focus {
+	background-color: #fff;
+	color: #00458c;
+}
+
 /* Newsletter subscribe web form
- * #subscribe-to-newsletter and .webform-share-page-body are for iframing in LibApps
+ * #subscribe-to-newsletter is the iframe in LibApps
  * #block-subscribe-newsletter is the block in drupal
- * 
- * .webform-share-page-body is generic for all iframed webforms in D9, so be aware
- * of future shared webforms
  */
 
 iframe#subscribe-to-newsletter {
@@ -762,27 +780,19 @@ iframe#subscribe-to-newsletter,
 	background-color: #00457c !important;
 	color: #fff;
 }
-body.webform-share-page-body { color: #fff; }
-body.webform-share-page-body h1,
 #block-subscribe-newsletter h2 {
 	font-size: 20px;
 	font-weight: bold;
 	text-transform: uppercase;
 }
-body.webform-share-page-body input.form-text,
-body.webform-share-page-body input.form-email,
 #block-subscribe-newsletter input.form-text,
 #block-subscribe-newsletter input.form-email {
 	width: 220px;
 	color: #444;
 }
-body.webform-share-page-body label,
 #block-subscribe-newsletter label {
 	display: inline-block;
-	width: 70px;
-	font-size: 13px;
 }
-body.webform-share-page-body input.form-submit,
 #block-subscribe-newsletter input.form-submit {
 	background-color: #02779e;
 	border: 1px solid white;
@@ -790,9 +800,6 @@ body.webform-share-page-body input.form-submit,
 	margin: 5px 0 0 67px;
 	padding: 5px 8px;
 }
-body.webform-share-page-body input.form-submit:hover,
-body.webform-share-page-body input.form-submit:active,
-body.webform-share-page-body input.form-submit:focus,
 #block-subscribe-newsletter input.form-submit:hover,
 #block-subscribe-newsletter input.form-submit:active,
 #block-subscribe-newsletter input.form-submit:focus {
@@ -852,10 +859,7 @@ body.webform-share-page-body input.form-submit:focus,
 }
 
 @media print {
-	#block-subscribe-newsletter,
-	body.webform-share-page-body {
-		display: none;
-	}
+	#block-subscribe-newsletter { display: none; }
 }
 
 /* OCA styles */
