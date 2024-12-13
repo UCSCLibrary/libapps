@@ -16,6 +16,7 @@ Javsacript also comes from the Spencer theme. It can be found at
 /sites/all/themes/spencer/js/spencer.js
 
 Note that most of the code there is legacy and is not copied here.
+TODO: separate out global from local scripts.
 
 ## Updating the header
 
@@ -23,8 +24,11 @@ To update the header, look at the source code of the main website. Copy
 from the `<div class="header">` tag down to the closing div just before the
 `<div id="main-content">` tag.
 
-IMPORTANT: Update the URL of the search form. It should look like:
-    `<form class="google-cse" action="https://library.ucsc.edu/" method="post" id="search-block-form" accept-charset="UTF-8">`
+1. Update the URL of the search form. It should look like:
+    `<form action="https://library.ucsc.edu/search/results" ... >`
+
+2. Remove the style parameter from all elements. These are applied
+dynamically by the javascript.
 
 ## Updating the footer
 

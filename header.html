@@ -1,16 +1,15 @@
 <div class="header">
-  <div class="header-main">
+  <div class="header-brand">
     <div class="site-logo">
       <h1>
-        <a href="https://www.ucsc.edu">
-          <img src="https://library.ucsc.edu/sites/default/files/external/images/header-ucsc-logo-white.png" alt="UC Santa Cruz" />
-        </a>
-        <span class="site-title-mobile">University Library</span>
+                <a href="https://www.ucsc.edu" class="logo"><img src="/themes/spencer/img/2021-ucsc-logo.png" alt="UC Santa Cruz"></a>
+        <span class="site-title-mobile"><a href="https://library.ucsc.edu">University Library</a></span>
       </h1>
     </div>
-    <div class="header-main-menu">  
-        <div class="region region-header">
-    <nav role="navigation" aria-labelledby="block-spencer-spencer-menu-menu-main-menu-menu" id="block-spencer-spencer-menu-menu-main-menu" class="block block-menu navigation menu--menu-main-menu">
+  </div>
+  <div class="header-main-menu">
+      <div class="region region-header">
+    <nav role="navigation" aria-labelledby="block-spencer-spencer-menu-menu-main-menu-menu" id="block-spencer-spencer-menu-menu-main-menu" class="navbar-collapse collapse block block-menu navigation menu--menu-main-menu">
             
   <h2 class="visually-hidden" id="block-spencer-spencer-menu-menu-main-menu-menu">Main menu</h2>
   
@@ -34,38 +33,25 @@
 
 
   </nav>
-<div class="search-block-form google-cse block block-search container-inline" data-drupal-selector="search-block-form" id="block-searchform" role="search">
-  
-    
-      <form action="https://library.ucsc.edu/search/results" method="get" id="search-block-form" accept-charset="UTF-8">
-  <div class="js-form-item form-item js-form-type-search form-type-search js-form-item-keys form-item-keys form-no-label">
-      <label for="edit-keys" class="visually-hidden">Search</label>
-        <input title="Enter the terms you wish to search for." data-drupal-selector="edit-keys" type="search" id="edit-keys" name="keys" value="" size="15" maxlength="128" class="form-search" />
-
-        </div>
-<div data-drupal-selector="edit-actions" class="form-actions js-form-wrapper form-wrapper" id="edit-actions"><input data-drupal-selector="edit-submit" type="submit" id="edit-submit" value="Search" class="button js-form-submit form-submit" />
-</div>
-
-</form>
 
   </div>
 
   </div>
-
-    </div>
-  </div>
-  <div class="header-secondary clearfix">
-    <div class="header-secondary-menu">    
+  <div class="header-secondary">
+    <div class="header-secondary-menu">
         <div class="region region-navigation">
     <div id="block-megamenu" class="block block-mchenry block-mchenry-megamenu">
   
     
       <nav class="navbar" role="navigation">
-<div class="navbar-header"><button aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar-collapse-1" data-toggle="collapse" type="button">Menu</button><a class="navbar-brand" href="https://library.ucsc.edu/">University Library</a></div>
+<div class="navbar-header">
+  <button aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar-collapse-1,#block-searchform,#block-spencer-spencer-menu-menu-main-menu" data-toggle="collapse" type="button" aria-label="Menu"><svg class="svg-inline--fa fa-bars fa-w-14" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="bars" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg><!-- <i class="fa fa-2xl fa-bars" aria-hidden="true"></i> --></button>
+  <a class="navbar-brand" href="https://library.ucsc.edu/">University Library</a>
+</div>
 
 <div class="navbar-collapse collapse" id="navbar-collapse-1">
 <ul class="menu nav navbar-nav" role="menubar">
-  <li class="dropdown" role="menuitem"><a class="dropdown-toggle find" data-toggle="dropdown" data-target="#navbar-collapse-1 .dropdown" tabindex="0">Find Books, Articles &amp; More</a>
+  <li class="dropdown" role="menuitem"><a class="dropdown-toggle find" data-toggle="dropdown" data-target="#navbar-collapse-1 .dropdown" tabindex="0" aria-haspopup="menu">Find Books, Articles &amp; More</a>
     <ul class="dropdown-menu">
       <li><a href="https://ucsc.primo.exlibrisgroup.com/discovery/search?vid=01CDL_SCR_INST:USCS"><span>UC Library Search</span></a></li>
       <li><a href="https://guides.library.ucsc.edu/az.php"><span>Databases A - Z</span></a></li>
@@ -76,7 +62,7 @@
       <li><a href="https://guides.library.ucsc.edu/mediadesk"><span>Film &amp; Music</span></a></li>
     </ul>
   </li>
-  <li class="dropdown" role="menuitem"><a class="dropdown-toggle" data-toggle="dropdown" data-target="#navbar-collapse-1 .dropdown" tabindex="0">Research Help &amp; Tutorials</a>
+  <li class="dropdown" role="menuitem"><a class="dropdown-toggle" data-toggle="dropdown" data-target="#navbar-collapse-1 .dropdown" tabindex="0" aria-haspopup="menu">Research Help &amp; Tutorials</a>
     <ul class="dropdown-menu">
       <li><a href="https://guides.library.ucsc.edu/writing"><span>Start Your Research</span></a></li>
       <li><a href="https://guides.library.ucsc.edu/"><span>Recommended Resources</span></a></li>
@@ -85,7 +71,7 @@
       <li><a href="https://guides.library.ucsc.edu/courseguides"><span>Course Guides</span></a></li>
     </ul>
   </li>
-  <li class="dropdown" role="menuitem"><a class="dropdown-toggle" data-toggle="dropdown" data-target="#navbar-collapse-1 .dropdown" tabindex="0">Spaces &amp; Technology</a>
+  <li class="dropdown" role="menuitem"><a class="dropdown-toggle" data-toggle="dropdown" data-target="#navbar-collapse-1 .dropdown" tabindex="0" aria-haspopup="menu">Spaces &amp; Technology</a>
     <ul class="dropdown-menu">
       <li><a href="https://guides.library.ucsc.edu/reserve-a-study-room"><span>Reserve a Study Room</span></a></li>
       <li><a href="https://guides.library.ucsc.edu/DS/DSI/Home"><span>Digital Scholarship Innovation Studio</span></a></li>
@@ -95,7 +81,7 @@
       <li><a href="https://guides.library.ucsc.edu/DS/Equipment/ForCheckout"><span>Borrow Tech &amp; Equipment</span></a></li>
     </ul>
   </li>
-  <li class="dropdown" role="menuitem"><a class="dropdown-toggle teaching" data-toggle="dropdown" data-target="#navbar-collapse-1 .dropdown" tabindex="0">Teaching &amp; Scholarly Support</a>
+  <li class="dropdown" role="menuitem"><a class="dropdown-toggle teaching" data-toggle="dropdown" data-target="#navbar-collapse-1 .dropdown" tabindex="0" aria-haspopup="menu">Teaching &amp; Scholarly Support</a>
     <ul class="dropdown-menu">
       <li><a href="https://guides.library.ucsc.edu/library-teaching-support"><span>Teaching Support</span></a></li>
       <li><a href="https://guides.library.ucsc.edu/faculty-services"><span>Faculty &amp; Graduate Services</span></a></li>
@@ -106,7 +92,7 @@
       <li><a href="https://library.ucsc.edu/request-a-purchase"><span>Request a Purchase</span></a></li>
     </ul>
   </li>
-  <li class="dropdown" role="menuitem"><a class="dropdown-toggle" data-toggle="dropdown" data-target="#navbar-collapse-1 .dropdown" tabindex="0">About the Library</a>
+  <li class="dropdown" role="menuitem"><a class="dropdown-toggle" data-toggle="dropdown" data-target="#navbar-collapse-1 .dropdown" tabindex="0" aria-haspopup="menu">About the Library</a>
     <ul class="dropdown-menu">
       <li><a href="https://guides.library.ucsc.edu/about-us"><span>About the Library</span></a></li>
       <li><a href="https://library.ucsc.edu/news"><span>News &amp; Events</span></a></li>
@@ -120,6 +106,21 @@
 </ul>
 </div>
 </nav>
+
+  </div>
+<div class="search-block-form google-cse navbar-collapse collapse block block-search container-inline" data-drupal-selector="search-block-form" id="block-searchform" role="search">
+  
+    
+      <form action="https://library.ucsc.edu/search/results" method="get" id="search-block-form" accept-charset="UTF-8" data-once="form-updated" data-drupal-form-fields="edit-keys">
+  <div class="js-form-item form-item js-form-type-search form-type-search js-form-item-keys form-item-keys form-no-label">
+      <label for="edit-keys" class="visually-hidden">Search</label>
+        <input title="Enter the terms you wish to search for." data-drupal-selector="edit-keys" type="search" id="edit-keys" name="keys" value="" size="15" maxlength="128" class="form-search" placeholder="Search this Site">
+
+        </div>
+<div data-drupal-selector="edit-actions" class="form-actions js-form-wrapper form-wrapper" id="edit-actions"><input data-drupal-selector="edit-submit" type="submit" id="edit-submit" value="Search" class="button js-form-submit form-submit">
+</div>
+
+</form>
 
   </div>
 

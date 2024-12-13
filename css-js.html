@@ -1,5 +1,5 @@
 <script>
-jQuery(document).ready(function() {
+jQuery(document).ready(function ($) {
 	/* search form placeholder text */
 	$('#search-block-form input.form-search').attr("placeholder", "Search this Site");
 
@@ -21,37 +21,47 @@ jQuery(document).ready(function() {
 	menuResizeEvent();
 
 	/* Megamenu hover effects
-	 * Defaults are set with css, for users without javascript
+	 * Defaults are set in global.css, for users without javascript
 	 */
 	// Hover effects for individual menu items
 	$('#block-megamenu .dropdown-menu li').hover(function () {
-		// set links in all columns to #ccc
-		$('#block-megamenu').find('.dropdown-menu span').css('color', '#ccc');
-		// set links in own column to #fff
-		$(this).parent().find('span').css('color', '#fff');
-		// hover effect for parent category (can remove with :has support in firefox)
-    	$(this).parent().prev().css({"background-color": "#ffcc33", "color": "#000"});
+		if (jQuery(window).width() > 767) {
+			// set links in all columns to #ccc
+			$('#block-megamenu').find('.dropdown-menu span').css('color', '#ccc');
+			// set links in own column to #fff
+			$(this).parent().find('span').css('color', '#fff');
+			// hover effect for parent category
+	    	$(this).parent().prev().css({"background-color": "#ffcc33", "color": "#000"});
+    	}
     }, function () {
-        // set links in all columns to #fff, in case focus leaves whole menu
-		$('#block-megamenu').find('.dropdown-menu span').css('color', '#fff');
-		// hover effect for parent category (can remove with :has support in firefox)
-    	$(this).parent().prev().css({"background-color": "inherit", "color": "#fff"});
+    	if (jQuery(window).width() > 767) {
+        	// set links in all columns to #fff, in case focus leaves whole menu
+			$('#block-megamenu').find('.dropdown-menu span').css('color', '#fff');
+			// reset hover effect for parent category
+    		$(this).parent().prev().css({"background-color": "inherit", "color": "#fff"});
+    	}
     });
     // Hover effects for top-level menu categories
-    // Manually set the hover effect because the above code sets it on the element,
-    // which overwrites the existing css rule (global.css line ~455).
+    // Manually set the hover effect because the above code sets it on the element, 
+    // which overwrites the existing css rule (global.css line ~433).
 	$('#block-megamenu .dropdown-toggle').hover(function() {
-		// this override of css can be removed when firefox supports :has
-		$(this).css({ "background-color": "#ffcc33", "color": "#000" });
-		// set links in all columns to #ccc
-		$('#block-megamenu').find('.dropdown-menu span').css('color', '#ccc');
-		// set links in own column to #fff
-		$(this).next().children().find('span').css('color', '#fff');
+		if (jQuery(window).width() > 767) {
+			$(this).css({ "background-color": "#ffcc33", "color": "#000" });
+			// set links in all columns to #ccc
+			$('#block-megamenu').find('.dropdown-menu span').css('color', '#ccc');
+			// set links in own column to #fff
+			$(this).next().children().find('span').css('color', '#fff');
+		} else {
+			$(this).css({ "background-color": "inherit", "color": "#003c6c", "text-decoration": "underline" });
+		}
     }, function () {
-    	// this override of css can be removed when firefox supports :has
-        $(this).css({ "background-color": "inherit", "color": "#fff" });
-        // set links in all columns to #fff, in case focus leaves whole menu
-		$('#block-megamenu').find('.dropdown-menu span').css('color', '#fff');
+    	if (jQuery(window).width() > 767) {
+	        $(this).css({ "background-color": "inherit", "color": "#fff" });
+    	    // set links in all columns to #fff, in case focus leaves whole menu
+			$('#block-megamenu').find('.dropdown-menu span').css('color', '#fff');
+		} else {
+			$(this).css({"color": "#000", "text-decoration": "none"});
+		}
 	});
 });
 
@@ -68,14 +78,18 @@ window.onresize = function(){
  * Mobile: one dropdown open at a time
  */
 function menuResizeEvent(){
-	if (jQuery(window).width() < 768) {
+	if (jQuery(window).width() < 767) {
 		jQuery('#block-megamenu .dropdown-toggle').each(function () {
-			jQuery(this).attr('data-target','dropdown');
+			jQuery(this).attr('data-target','dropdown').css('color', '#000');
 		});
+		// Set link colors, in case colors were set on the elements on desktop
+		jQuery('#block-megamenu').find('.dropdown-menu span').css('color', '#000');
 	} else {
 		jQuery('#block-megamenu .dropdown-toggle').each(function () {
-			jQuery(this).attr('data-target','#navbar-collapse-1 .dropdown');
+			jQuery(this).attr('data-target','#navbar-collapse-1 .dropdown').css('color', '#fff');
 		});
+		// Set link colors, in case colors were set on the elements on mobile
+		jQuery('#block-megamenu').find('.dropdown-menu span').css('color', '#fff');
 	}
 }
 
@@ -133,6 +147,12 @@ function reformatMoreTags() {
  * to other sites, like LibApps.
  *
  * Copy updates to libapps repo
+ *
+ * Colors:
+ * * Dark blue:  #003c6c
+ * * Light blue: #f3faff
+ * * Yellow:     #ffcc33
+ *
  */
 * {
 	margin: 0;
@@ -140,16 +160,27 @@ function reformatMoreTags() {
 }
 
 body {
-	font-family: Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-family: "Inter",Helvetica,Arial,sans-serif;
 	margin: 0px;
 	padding: 0;
-	font-size: 16px;
-	line-height: 1.42857143;
+	font-size: 16px !important;
+	line-height: 1.42857143 !important;
 	color: #000;
 	background-color: #eee;
+	padding: 0 !important;
 }
-.container { max-width: 1350px; }
-a { color: #02779e; }
+a { color: #003c6c; }
+a:hover {
+    color: #006aad;
+    text-decoration: underline;
+    -webkit-text-decoration-color: #ffc500;
+    text-decoration-color: #ffc500;
+    text-decoration-skip-ink: auto;
+    text-decoration-thickness: .18em;
+    text-underline-offset: .12em;
+}
+em { font-weight: normal; }
+
 .error { color: red; }
 .hidden { visibility: hidden; }
 .highlight { color: #2196f3; }
@@ -187,7 +218,7 @@ h1.page-title {
 	display: block;
 	margin-top: 20px;
     margin-bottom: 20px;
-	font-family: Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-family: "Inter",Helvetica,Arial,sans-serif;
 	font-weight: 500;
 }
 h3 {
@@ -217,180 +248,142 @@ html.js fieldset.collapsed {
 
 /* Header Styles */
 .header {
-	max-width: 1350px;
-	margin: 0 auto;
-	border-left: 1px solid #444;
-	border-right: 1px solid #444;
+	background-color: #003c6c;
+	display: flex;
+	flex-direction: column;
 }
 
-.header-main {
-	background-color: #01589d;
-	padding: 10px;
+.header-brand {
+	order: 1;
 	overflow: hidden;
+	padding: 0 10px;
 }
 
-.header-main .site-logo {
-	text-align: center;
-}
-
-.header-main h1 {
+.header-brand h1 {
 	display: inline-block;
 	padding: 0px;
 	margin: 5px 0px 10px 0px;
+	font-size: initial;
 }
 
-.header-main h1 .site-title-mobile {
-	color: #fff;
-	font-size: 18px;
-	padding-left: 1px;
+.header-brand a.logo {
+	display: inline-block;
+	padding: 3px 5px;
+	background-color: #fff;
+	border-radius: 3px;
+	text-align: center;
 }
+.header-brand a.logo img {
+	width: 80px;
+}
+
+.header-brand h1 .site-title-mobile a {
+	position: relative;
+	top: 2px;
+	color: #fff;
+	font-size: 16px;
+	text-transform: uppercase;
+}
+
 @media print {
-	.header-main { display: none; }
+	.header-brand { display: none; }
 }
 
 /* Main menu - top bar, not mega menu */
-.header-main-menu nav {
-	text-align: center;
-	display: block;
+.header-main-menu {
+	order: 3;
+	background-color: #ffcc33;
 }
 
 .header-main-menu ul.menu {
-	display: inline-block;
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: space-around;
 	margin: 8px 0px;
-	background-color: #02779e;
-	padding: 3px 0px 4px 0px;
 }
 
 .header-main-menu ul.menu li {
 	display: inline-block;
-	list-style-type: none;
-	margin: 0px;
-	padding: 0px;
-}
-
-.header-main-menu ul.menu li a {
-	text-decoration: none;
-	color: #fff;
-	background-repeat: no-repeat;
-	padding: 5px 7px;
-	text-align: center;
-	background-image: none;
-	font-size: 14px;
-}
-
-.header-main-menu ul.menu li a:hover {
-	background-color: #ffcc33;
-	text-decoration: none;
-	color: #00457c;
-}
-
-#block-searchform {
-	margin: 5px 0px;
+	padding: 0 10px;
 	text-align: center;
 }
 
-#search-block-form .form-submit {
-  	display: none;
+.header-main-menu ul.menu a {
+	color: #000;
+	text-transform: uppercase;
 }
 
-#search-block-form .form-search {
-	border: 1px solid #fff;
-	background-color: #fff;
-	background-image: none !important;
-	color: #84827c;
-	font-size: 15px;
-	font-weight: normal;
-	width: 138px;
-	height: 29px;
-	line-height: 140%;
-	padding: 4px;
-	margin: -3px 0 0 0;
-}
-#search-block-form .form-search::placeholder {
-    color: #84827c;
-    opacity: 1;
+@media all and (min-width: 450px) {
+	.header-brand a.logo img {
+		width: 100px;
+	}
+	.header-brand h1 .site-title-mobile a {
+		top: 3px;
+		font-size: 22px;
+		margin-left: 5px;
+	}
 }
 
-@media all and (min-width : 860px) {
-	.header-main {
-		padding: 10px 10px 4px 10px;
-		height: 45px;
+@media all and (min-width: 768px) {
+	.header {
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		background: linear-gradient(0deg, #fff 91%, #003c6c 91%);
 	}
-	.header-main h1 {
-		font-size: 1px;
-		margin: 0px;
-		float: left;
+	.header-brand,
+	.header-main-menu {
+		flex-grow: 1;
 	}
-	.header-main h1 .site-title-mobile {
-		float: right;
-		margin: 4px 0 4px 15px;
+	.header-brand {
+		max-width: 700px;
+		margin-top: 25px;
+		text-align: center;
+	}
+	.header-main-menu { max-width: 650px; }
+	.header-brand .site-logo { margin-top: 16px; }
+	.header-brand a.logo {
+		display: inline;
+	}
+	.header-brand a.logo img {
+		width: 140px
+	}
+	.header-brand h1 .site-title-mobile a {
+		color: #003c6c;
 	}
 	.header-main-menu {
-		float: right;
+		order: 2;
+		margin-top: 0;
+		background-color: #fff;
 	}
-	.header-main-menu nav {
-		text-align: center;
-		display: inline-block;
-	}
-
-	.header-main-menu #block-system-main-menu, 
-	.header-main-menu #block-menu-menu-main-menu {
-		display: inline-block;
-	}
-
 	.header-main-menu ul.menu {
-		display: inline-block;
-		margin: 0px 0px 0px 0px;
-		padding: 0px 0px 10px 10px;
-		background-color: transparent;
+		justify-content: space-between;
+		margin: 25px 0;
 	}
-
-	.header-main-menu ul.menu li {
-		display: inline;
-		padding: 0px 10px 0px 0px;
-		list-style-type: none;
-		text-align: left;
+	.header-main-menu ul.menu a {
+		font-weight: bold;
+		text-transform: initial;
 	}
-
-	.header-main-menu ul.menu li a {
-		border: none;
-		background-color: transparent;
+	.header-main-menu ul.menu li:has(a.myaccount) {
+		order: 9;
 	}
-	.header-main-menu ul.menu li a:hover {
-		text-decoration: underline;
-		background-color: transparent;
-		color: #fff;
-	}
-
-	.header-main-menu ul.menu li a {
-		background-image: url('https://library.ucsc.edu/sites/default/files/external/images/golddot.png');
-		padding: 1px 0px 0px 16px;
-		background-position: 0% 55%;
-	}
-
-	.header-main-menu ul.menu li a.hours {
-		background-image: none;
-		padding: 1px 0px 0px 0px;
-	}
-
-	#block-searchform {
-		display: inline-block;
-		margin: 0px;
-	}
-
-	#search-block-form .form-search {
-		margin: 0px 2px 0px 8px;
+	.header-main-menu a.myaccount {
+		background-color: #ffcc33;
+		padding: 10px 25px;
+		border-radius: 3px;
 	}
 }
+
+@media all and (min-width: 840px) {
+	.header-main-menu { margin-top: 25px; }
+}
+
 @media all and (min-width : 980px) {
-	.header-main h1 .site-title-mobile {
-		display: none;
-	}
+	.header-brand { text-align: left; }
+	.header-brand h1 .site-title-mobile { display: none; }
 }
 @media print {
-	.header-main-menu {
-		display: none;
-	}
+	.header-main-menu { display: none; }
 }
 
 /* menu container */
@@ -412,7 +405,7 @@ html.js fieldset.collapsed {
 }
 .nav,
 input {
-  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Inter", Helvetica, Arial, sans-serif;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
 }
@@ -442,42 +435,46 @@ input {
 }
 
 /*
- * Secondary header: mega menu and site title 
+ * Secondary header: mega menu, site title, site search
  */
-.navbar { margin-bottom: 0; }
-.header-secondary { background-color: #00457c; }
-.navbar-toggle {
-	display: block;
-	margin: 8px auto;
-	color: #fff;
-	text-transform: uppercase;
-	width: 80px;
-	border: 1px solid #fff;
-	border-radius: 0;
-	padding: 7px 0px;
-	float: none;
+.navbar {
+	margin-bottom: 0;
+	border: none;
 }
-/* Site title: University Library */
-.header-secondary a.navbar-brand { display: none; }
-.header-secondary a.navbar-brand:hover, 
-.header-secondary a.navbar-brand:visited {
-	text-decoration: none;
+.header-secondary {
+	order: 2;
+	width: 100%;
+	background-color: #f3faff;
+}
+.header-secondary-menu {
+	max-width: 1350px;
+	margin: 0 auto;
 }
 @media all and (min-width: 768px) {
 	.header-secondary {
-		background-color: #02779e;
 		overflow: visible;
+		background-color: #003c6c;
 	}
-	.navbar {
+	.header-secondary .region-navigation {
 		display: flex;
-		justify-content: space-between;
+		position: relative;
+		padding-right: 58px;
 	}
+	.navbar { border-radius: 0;	}
 	.navbar-toggle { display: none; }
+}
+
+/* Site title: University Library */
+.header-secondary a.navbar-brand { display: none; }
+.header-secondary a.navbar-brand:hover,
+.header-secondary a.navbar-brand:visited {
+	text-decoration: none;
 }
 @media all and (min-width: 980px) {
 	.header-secondary a.navbar-brand {
 		display: block;
-		padding: 8px;
+		margin-top: 12px;
+		padding: 8px 15px;
 		height: auto;
 		max-width: 170px;
 		font-size: 24px;
@@ -489,25 +486,45 @@ input {
 		z-index: 9;
 	}
 }
-@media all and (min-width: 1080px) {
+@media all and (min-width: 1300px) {
 	.header-secondary a.navbar-brand {
 		font-size: 2.225em;
 		max-width: 250px;
+		margin-top: 0;
 	}
 }
-/* Mega/Main menu */
-#block-megamenu .navbar::before,
-#block-megamenu .navbar::after { display: none; }
+/* Main Menu / Mega-Menu
+ * Note: link hover effects handled in spencer.js, with some defaults here
+ */
+#block-megamenu { padding: 0 15px; }
+#block-megamenu .navbar { min-height: 0; }
+#block-megamenu .navbar-toggle {
+	position: absolute;
+	right: 0;
+	top: -50px;
+}
+#block-megamenu nav button svg.svg-inline--fa {
+	color: #fff;
+}
 #block-megamenu .menu { margin: 10px 0; }
 #block-megamenu .menu,
 #block-megamenu .menu .dropdown {
 	display: block;
 	float: none;
 }
-#block-megamenu .dropdown > a {
-	cursor: pointer;
-	color: #fff;
+#block-megamenu li.dropdown {
+	border-bottom: 1px solid #000;
+	background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IS0tIFVwbG9hZGVkIHRvOiBTVkcgUmVwbywgd3d3LnN2Z3JlcG8uY29tLCBHZW5lcmF0b3I6IFNWRyBSZXBvIE1peGVyIFRvb2xzIC0tPgo8c3ZnIHdpZHRoPSI4MDBweCIgaGVpZ2h0PSI4MDBweCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik00LjQ2OTM4IDkuMzk5NjZDNC43NjIyNyA5LjEwNjc3IDUuMjM3MTUgOS4xMDY3NyA1LjUzMDA0IDkuMzk5NjZMMTEuODk0IDE1Ljc2MzZDMTEuOTkxNiAxNS44NjEzIDEyLjE0OTkgMTUuODYxMyAxMi4yNDc2IDE1Ljc2MzZMMTguNjExNSA5LjM5OTY2QzE4LjkwNDQgOS4xMDY3NyAxOS4zNzkzIDkuMTA2NzcgMTkuNjcyMiA5LjM5OTY2QzE5Ljk2NTEgOS42OTI1NiAxOS45NjUxIDEwLjE2NzQgMTkuNjcyMiAxMC40NjAzTDEzLjMwODIgMTYuODI0M0MxMi42MjQ4IDE3LjUwNzcgMTEuNTE2OCAxNy41MDc3IDEwLjgzMzMgMTYuODI0M0w0LjQ2OTM4IDEwLjQ2MDNDNC4xNzY0OSAxMC4xNjc0IDQuMTc2NDkgOS42OTI1NiA0LjQ2OTM4IDkuMzk5NjZaIiBmaWxsPSIjMDAwMDAwIi8+DQo8L3N2Zz4=") right center/6% no-repeat;
+}
+#block-megamenu li.dropdown.open {
+	background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IS0tIFVwbG9hZGVkIHRvOiBTVkcgUmVwbywgd3d3LnN2Z3JlcG8uY29tLCBHZW5lcmF0b3I6IFNWRyBSZXBvIE1peGVyIFRvb2xzIC0tPgo8c3ZnIHdpZHRoPSI4MDBweCIgaGVpZ2h0PSI4MDBweCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMi4yNDc2IDguMjM3NDFDMTIuMTUgOC4xMzk3OCAxMS45OTE3IDguMTM5NzggMTEuODk0IDguMjM3NDFMNS41MzAwOSAxNC42MDE0QzUuMjM3MTkgMTQuODk0MyA0Ljc2MjMyIDE0Ljg5NDMgNC40Njk0MyAxNC42MDE0QzQuMTc2NTMgMTQuMzA4NSA0LjE3NjUzIDEzLjgzMzYgNC40Njk0MyAxMy41NDA3TDEwLjgzMzQgNy4xNzY3NUMxMS41MTY4IDYuNDkzMzMgMTIuNjI0OCA2LjQ5MzMzIDEzLjMwODMgNy4xNzY3NUwxOS42NzIyIDEzLjU0MDdDMTkuOTY1MSAxMy44MzM2IDE5Ljk2NTEgMTQuMzA4NSAxOS42NzIyIDE0LjYwMTRDMTkuMzc5MyAxNC44OTQzIDE4LjkwNDUgMTQuODk0MyAxOC42MTE2IDE0LjYwMTRMMTIuMjQ3NiA4LjIzNzQxWiIgZmlsbD0iIzAwMDAwMCIvPg0KPC9zdmc+");
+	background-position: 100% 5%;
+}
+#block-megamenu li.dropdown > a {
+	padding: 20px 0;
+	color: #000;
 	font-size: 16px;
+	font-weight: bold;
 	text-transform: uppercase;
 }
 #block-megamenu .dropdown > a:hover,
@@ -519,11 +536,11 @@ input {
 }
 #block-megamenu .open > a { background-color: inherit; }
 #block-megamenu .dropdown-menu {
-	margin: 0 35px;
+	margin: 0 0 10px;
 	padding: 0;
 }
 #block-megamenu .dropdown-menu a span {
-	color: #fff;
+	color: #000;
 	font-size: 14px;
 	border-bottom: 2px solid transparent;
 }
@@ -543,25 +560,33 @@ input {
 }
 
 @media all and (min-width: 768px) {
+	#block-megamenu {
+		flex-grow: 1;
+		padding: 0;
+	}
 	#block-megamenu .menu {
 		display: flex;
 		align-items: stretch;
-		height: 100%;
+		justify-content: end;
+		height: 95px;
 		margin: 0;
 	}
-	#block-megamenu .dropdown {
+	#block-megamenu li.dropdown {
 		display: flex;
+		border-bottom: none;
+		background: none;
 	}
-	#block-megamenu .dropdown > a {
+	#block-megamenu li.dropdown > a {
 		display: flex;
 		align-items: center;
+		color: #fff;
 		font-size: 12px;
-		font-weight: bold;
 		height: 100%;
 		max-width: 182px;
+		padding: 15px;
 	}
-	#block-megamenu .dropdown > a.teaching { max-width: 215px; }
-	#block-megamenu .dropdown:last-child > a { padding-right: 36px; }
+	#block-megamenu li.dropdown > a.teaching { max-width: 215px; }
+	#block-megamenu li.dropdown:last-child > a { padding-right: 36px; }
 	#block-megamenu .dropdown-menu {
 		min-width: auto;
   		width: 100%;
@@ -583,26 +608,86 @@ input {
 	#block-megamenu a.dropdown-toggle:hover ~ ul li a span {
 		color: #fff;
 	}
-	/* Not yet supported in Firefox, workaround in spencer.js */
 	#block-megamenu a.dropdown-toggle:has(+ .dropdown-menu:hover) {
 		background-color: #ffcc33;
 		color: #000;
 	}
 }
 @media all and (min-width: 870px) {
-	#block-megamenu .dropdown > a { font-size: 12px; }
+	#block-megamenu li.dropdown > a { font-size: 12px; }
 	#block-megamenu .dropdown-menu { height: 396px; }
 }
 @media all and (min-width: 980px) {
 	#block-megamenu .dropdown-menu { height: 435px; }
-	#block-megamenu .dropdown > a.find { max-width: 188px; }
+	#block-megamenu li.dropdown > a.find { max-width: 188px; }
 }
 @media all and (min-width: 1110px) {
 	#block-megamenu .dropdown-menu { height: 380px; }
-	#block-megamenu .dropdown > a { font-size: 14px; }
+	#block-megamenu li.dropdown > a { font-size: 14px; }
 }
-@media all and (min-width: 1215px) {
-	#block-megamenu .dropdown > a { font-size: 16px; }
+
+/* Site search form */
+#block-searchform {
+	margin: 10px 0;
+	padding: 5px 30px;
+}
+
+#search-block-form .form-submit {
+  	display: none;
+}
+
+#search-block-form .form-search {
+	border: 1px solid #fff;
+	background: #fff url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCwwLDI1NiwyNTYiPgo8ZyBmaWxsPSIjMDAzYzZjIiBmaWxsLXJ1bGU9Im5vbnplcm8iIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2UtbGluZWNhcD0iYnV0dCIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtZGFzaGFycmF5PSIiIHN0cm9rZS1kYXNob2Zmc2V0PSIwIiBmb250LWZhbWlseT0ibm9uZSIgZm9udC13ZWlnaHQ9Im5vbmUiIGZvbnQtc2l6ZT0ibm9uZSIgdGV4dC1hbmNob3I9Im5vbmUiIHN0eWxlPSJtaXgtYmxlbmQtbW9kZTogbm9ybWFsIj48ZyB0cmFuc2Zvcm09InNjYWxlKDguNTMzMzMsOC41MzMzMykiPjxwYXRoIGQ9Ik0xMywzYy01LjUxMSwwIC0xMCw0LjQ4OSAtMTAsMTBjMCw1LjUxMSA0LjQ4OSwxMCAxMCwxMGMyLjM5NjUxLDAgNC41OTczOCwtMC44NTEwMSA2LjMyMjI3LC0yLjI2MzY3bDUuOTcwNyw1Ljk3MDdjMC4yNTA4MiwwLjI2MTI0IDAuNjIzMjcsMC4zNjY0OCAwLjk3MzcxLDAuMjc1MTJjMC4zNTA0NCwtMC4wOTEzNiAwLjYyNDExLC0wLjM2NTAzIDAuNzE1NDcsLTAuNzE1NDdjMC4wOTEzNiwtMC4zNTA0NCAtMC4wMTM4OCwtMC43MjI4OSAtMC4yNzUxMiwtMC45NzM3MWwtNS45NzA3LC01Ljk3MDdjMS40MTI2NiwtMS43MjQ4OCAyLjI2MzY3LC0zLjkyNTc2IDIuMjYzNjcsLTYuMzIyMjdjMCwtNS41MTEgLTQuNDg5LC0xMCAtMTAsLTEwek0xMyw1YzQuNDMwMTIsMCA4LDMuNTY5ODggOCw4YzAsNC40MzAxMiAtMy41Njk4OCw4IC04LDhjLTQuNDMwMTIsMCAtOCwtMy41Njk4OCAtOCwtOGMwLC00LjQzMDEyIDMuNTY5ODgsLTggOCwtOHoiPjwvcGF0aD48L2c+PC9nPgo8L3N2Zz4K") 99% center/25px no-repeat !important;
+	width: 100%;
+	padding: 5px 25px 5px 5px;
+	box-shadow: 0px 1px 5px #ccc;
+	font-size: 12px;
+}
+#search-block-form .form-search::placeholder {
+    color: #84827c;
+    opacity: 1;
+}
+
+@media all and (min-width: 768px) {
+	#block-searchform {
+		position: absolute;
+		top: 0;
+		right: 30px;
+		padding: 0;
+		margin: 0;
+		z-index: 500;
+	}
+	#search-block-form .form-search {
+		height: 95px;
+		width: 0;
+		padding: 0 25px;
+		margin: 0;
+		background: #003c6c url("data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPCEtLSBVcGxvYWRlZCB0bzogU1ZHIFJlcG8sIHd3dy5zdmdyZXBvLmNvbSwgVHJhbnNmb3JtZWQgYnk6IFNWRyBSZXBvIE1peGVyIFRvb2xzIC0tPgo8c3ZnIHdpZHRoPSI4MDBweCIgaGVpZ2h0PSI4MDBweCIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgY2xhc3M9Imljb24iIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBmaWxsPSIjZmZmZmZmIj4KDTxnIGlkPSJTVkdSZXBvX2JnQ2FycmllciIgc3Ryb2tlLXdpZHRoPSIwIi8+Cg08ZyBpZD0iU1ZHUmVwb190cmFjZXJDYXJyaWVyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KDTxnIGlkPSJTVkdSZXBvX2ljb25DYXJyaWVyIj4KDTxwYXRoIGQ9Ik00NDggNzY4QTMyMCAzMjAgMCAxIDAgNDQ4IDEyOGEzMjAgMzIwIDAgMCAwIDAgNjQweiBtMjk3LjM0NC03Ni45OTJsMjE0LjU5MiAyMTQuNTkyLTU0LjMzNiA1NC4zMzYtMjE0LjU5Mi0yMTQuNTkyYTM4NCAzODQgMCAxIDEgNTQuMzM2LTU0LjMzNnoiIGZpbGw9IiNmZmZmZmYiLz4KDTwvZz4KDTwvc3ZnPg==") center/35px no-repeat !important;
+		border: none;
+		box-shadow: none;
+		font-size: 14px;
+
+	}
+	#search-block-form:hover {
+		background-color: #ffcc33;
+		border-radius: 15px;
+	}
+	#search-block-form:hover .form-search {
+		background: #ffcc33 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCwwLDI1NiwyNTYiPgo8ZyBmaWxsPSIjMDAzYzZjIiBmaWxsLXJ1bGU9Im5vbnplcm8iIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2UtbGluZWNhcD0iYnV0dCIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtZGFzaGFycmF5PSIiIHN0cm9rZS1kYXNob2Zmc2V0PSIwIiBmb250LWZhbWlseT0ibm9uZSIgZm9udC13ZWlnaHQ9Im5vbmUiIGZvbnQtc2l6ZT0ibm9uZSIgdGV4dC1hbmNob3I9Im5vbmUiIHN0eWxlPSJtaXgtYmxlbmQtbW9kZTogbm9ybWFsIj48ZyB0cmFuc2Zvcm09InNjYWxlKDguNTMzMzMsOC41MzMzMykiPjxwYXRoIGQ9Ik0xMywzYy01LjUxMSwwIC0xMCw0LjQ4OSAtMTAsMTBjMCw1LjUxMSA0LjQ4OSwxMCAxMCwxMGMyLjM5NjUxLDAgNC41OTczOCwtMC44NTEwMSA2LjMyMjI3LC0yLjI2MzY3bDUuOTcwNyw1Ljk3MDdjMC4yNTA4MiwwLjI2MTI0IDAuNjIzMjcsMC4zNjY0OCAwLjk3MzcxLDAuMjc1MTJjMC4zNTA0NCwtMC4wOTEzNiAwLjYyNDExLC0wLjM2NTAzIDAuNzE1NDcsLTAuNzE1NDdjMC4wOTEzNiwtMC4zNTA0NCAtMC4wMTM4OCwtMC43MjI4OSAtMC4yNzUxMiwtMC45NzM3MWwtNS45NzA3LC01Ljk3MDdjMS40MTI2NiwtMS43MjQ4OCAyLjI2MzY3LC0zLjkyNTc2IDIuMjYzNjcsLTYuMzIyMjdjMCwtNS41MTEgLTQuNDg5LC0xMCAtMTAsLTEwek0xMyw1YzQuNDMwMTIsMCA4LDMuNTY5ODggOCw4YzAsNC40MzAxMiAtMy41Njk4OCw4IC04LDhjLTQuNDMwMTIsMCAtOCwtMy41Njk4OCAtOCwtOGMwLC00LjQzMDEyIDMuNTY5ODgsLTggOCwtOHoiPjwvcGF0aD48L2c+PC9nPgo8L3N2Zz4K") center/35px no-repeat !important;
+		cursor: pointer;
+	}
+	#block-searchform:has(.form-search:focus) {
+		top: 20px;
+	}
+	#search-block-form .form-search:focus {
+		height: 50px;
+		width: 250px;
+		background: #fff url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCwwLDI1NiwyNTYiPgo8ZyBmaWxsPSIjMDAzYzZjIiBmaWxsLXJ1bGU9Im5vbnplcm8iIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2UtbGluZWNhcD0iYnV0dCIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtZGFzaGFycmF5PSIiIHN0cm9rZS1kYXNob2Zmc2V0PSIwIiBmb250LWZhbWlseT0ibm9uZSIgZm9udC13ZWlnaHQ9Im5vbmUiIGZvbnQtc2l6ZT0ibm9uZSIgdGV4dC1hbmNob3I9Im5vbmUiIHN0eWxlPSJtaXgtYmxlbmQtbW9kZTogbm9ybWFsIj48ZyB0cmFuc2Zvcm09InNjYWxlKDguNTMzMzMsOC41MzMzMykiPjxwYXRoIGQ9Ik0xMywzYy01LjUxMSwwIC0xMCw0LjQ4OSAtMTAsMTBjMCw1LjUxMSA0LjQ4OSwxMCAxMCwxMGMyLjM5NjUxLDAgNC41OTczOCwtMC44NTEwMSA2LjMyMjI3LC0yLjI2MzY3bDUuOTcwNyw1Ljk3MDdjMC4yNTA4MiwwLjI2MTI0IDAuNjIzMjcsMC4zNjY0OCAwLjk3MzcxLDAuMjc1MTJjMC4zNTA0NCwtMC4wOTEzNiAwLjYyNDExLC0wLjM2NTAzIDAuNzE1NDcsLTAuNzE1NDdjMC4wOTEzNiwtMC4zNTA0NCAtMC4wMTM4OCwtMC43MjI4OSAtMC4yNzUxMiwtMC45NzM3MWwtNS45NzA3LC01Ljk3MDdjMS40MTI2NiwtMS43MjQ4OCAyLjI2MzY3LC0zLjkyNTc2IDIuMjYzNjcsLTYuMzIyMjdjMCwtNS41MTEgLTQuNDg5LC0xMCAtMTAsLTEwek0xMyw1YzQuNDMwMTIsMCA4LDMuNTY5ODggOCw4YzAsNC40MzAxMiAtMy41Njk4OCw4IC04LDhjLTQuNDMwMTIsMCAtOCwtMy41Njk4OCAtOCwtOGMwLC00LjQzMDEyIDMuNTY5ODgsLTggOCwtOHoiPjwvcGF0aD48L2c+PC9nPgo8L3N2Zz4K") 100% center/35px no-repeat !important;
+		border: 1px solid #fff;
+		background-color: #fff;
+		cursor: text;
+	}
 }
 
 /* Other styles */
@@ -671,6 +756,11 @@ input {
     background-color: #00457c;
 }
 
+body.path-frontpage .region.region-footer {
+  max-width: 1350px;
+	margin: 0 auto;
+}
+
 .footer2 {
 	background-color: #00457c;
 	color: #fff;
@@ -678,7 +768,6 @@ input {
 	font-size: 0.8em;
 	text-transform: uppercase;
 	clear: both;
-	max-width: 1350px;
 	margin: 0 auto;
 	overflow: auto;
 }
@@ -764,7 +853,7 @@ body.webform-share-page-body #edit-actions input.form-submit:focus {
 }
 
 /* Newsletter subscribe web form
- * #subscribe-to-newsletter is the iframe in LibApps
+ * #subscribe-to-newsletter is for iframing in LibApps
  * #block-subscribe-newsletter is the block in drupal
  */
 
@@ -775,7 +864,6 @@ iframe#subscribe-to-newsletter {
 }
 iframe#subscribe-to-newsletter,
 #block-subscribe-newsletter {
-	float: right;
 	margin: 25px 15px;
 	background-color: #00457c !important;
 	color: #fff;
@@ -820,6 +908,7 @@ iframe#subscribe-to-newsletter,
 		top: -296px;
  	}
 	#block-subscribe-newsletter {
+    float: right;
 		position: relative;
 		top: -299px;
 	}
@@ -1049,18 +1138,6 @@ body.s-la-page-public { background-color: #fff; }
 
 /*Color contrast for a11y */
 .s-la-faq-listing-meta .divider {color: #595959;}
-
-/*LibAnswers Overrides*/
-.s-la-page-public .header-main .form-actions{
-	padding:0px;
-	margin-top:0px;
-	background-color:transparent;
-	border-top:none;
-}
-.s-la-page-public .header-main .form-actions:after,
-.s-la-page-public .header-main .form-actions:before {
-	display:inline;
-}
 
 
 /*
