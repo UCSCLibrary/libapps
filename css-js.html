@@ -24,7 +24,7 @@ jQuery(document).ready(function ($) {
 	 * Defaults are set in global.css, for users without javascript
 	 */
 	// Hover effects for individual menu items
-	$('#block-megamenu .dropdown-menu li').hover(function () {
+	$('#block-megamenu .dropdown-menu li').on("mouseenter focusin", function () {
 		if (jQuery(window).width() > 767) {
 			// set links in all columns to #ccc
 			$('#block-megamenu').find('.dropdown-menu span').css('color', '#ccc');
@@ -33,7 +33,7 @@ jQuery(document).ready(function ($) {
 			// hover effect for parent category
 	    	$(this).parent().prev().css({"background-color": "#ffcc33", "color": "#000"});
     	}
-    }, function () {
+    }).on("mouseleave focusout", function () {
     	if (jQuery(window).width() > 767) {
         	// set links in all columns to #fff, in case focus leaves whole menu
 			$('#block-megamenu').find('.dropdown-menu span').css('color', '#fff');
@@ -44,7 +44,7 @@ jQuery(document).ready(function ($) {
     // Hover effects for top-level menu categories
     // Manually set the hover effect because the above code sets it on the element, 
     // which overwrites the existing css rule (global.css line ~433).
-	$('#block-megamenu .dropdown-toggle').hover(function() {
+	$('#block-megamenu .dropdown-toggle').on("mouseenter focusin", function() {
 		if (jQuery(window).width() > 767) {
 			$(this).css({ "background-color": "#ffcc33", "color": "#000" });
 			// set links in all columns to #ccc
@@ -54,7 +54,7 @@ jQuery(document).ready(function ($) {
 		} else {
 			$(this).css({ "background-color": "inherit", "color": "#003c6c", "text-decoration": "underline" });
 		}
-    }, function () {
+    }).on("mouseleave focusout", function () {
     	if (jQuery(window).width() > 767) {
 	        $(this).css({ "background-color": "inherit", "color": "#fff" });
     	    // set links in all columns to #fff, in case focus leaves whole menu
@@ -311,6 +311,10 @@ html.js fieldset.collapsed {
 .header-main-menu ul.menu a {
 	color: #000;
 	text-transform: uppercase;
+  text-decoration-line: none;
+}
+.header-main-menu ul.menu a:hover {
+  text-decoration-line: underline;
 }
 
 @media all and (min-width: 450px) {
@@ -370,8 +374,13 @@ html.js fieldset.collapsed {
 	.header-main-menu a.myaccount {
 		background-color: #ffcc33;
 		padding: 10px 25px;
+    border: 2px solid #ffcc33;
 		border-radius: 3px;
 	}
+  .header-main-menu a.myaccount:hover,
+  .header-main-menu a.myaccount:focus {
+    background-color: inherit;
+  }
 }
 
 @media all and (min-width: 840px) {
@@ -533,6 +542,7 @@ input {
 	text-decoration: none;
 	background-color: #ffcc33;
 	color: #000;
+  cursor: pointer;
 }
 #block-megamenu .open > a { background-color: inherit; }
 #block-megamenu .dropdown-menu {
@@ -633,7 +643,7 @@ input {
 }
 
 #search-block-form .form-submit {
-  	display: none;
+  display: none;
 }
 
 #search-block-form .form-search {
@@ -645,8 +655,13 @@ input {
 	font-size: 12px;
 }
 #search-block-form .form-search::placeholder {
-    color: #84827c;
-    opacity: 1;
+  color: #84827c;
+  opacity: 1;
+}
+#search-block-form #edit-actions {
+  display: inline;
+  padding: 0;
+  margin: 0;
 }
 
 @media all and (min-width: 768px) {
@@ -880,12 +895,13 @@ iframe#subscribe-to-newsletter,
 }
 #block-subscribe-newsletter label {
 	display: inline-block;
+  width: 70px;
 }
 #block-subscribe-newsletter input.form-submit {
 	background-color: #02779e;
 	border: 1px solid white;
 	border-radius: 5px;
-	margin: 5px 0 0 67px;
+	margin: 5px 0 0 75px;
 	padding: 5px 8px;
 }
 #block-subscribe-newsletter input.form-submit:hover,
