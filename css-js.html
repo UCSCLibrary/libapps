@@ -169,15 +169,21 @@ body {
 	background-color: #eee;
 	padding: 0 !important;
 }
-a { color: #003c6c; }
+a {
+  color: #003c6c;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: .18rem;
+  text-underline-offset: .12rem;
+}
 a:hover {
-    color: #006aad;
-    text-decoration: underline;
-    -webkit-text-decoration-color: #ffc500;
-    text-decoration-color: #ffc500;
-    text-decoration-skip-ink: auto;
-    text-decoration-thickness: .18em;
-    text-underline-offset: .12em;
+  color: #006aad;
+  -webkit-text-decoration-color: #ffc500;
+  text-decoration-color: #ffc500;
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: .18rem;
+  text-underline-offset: .12rem;
 }
 em { font-weight: normal; }
 
@@ -283,6 +289,7 @@ html.js fieldset.collapsed {
 	color: #fff;
 	font-size: 16px;
 	text-transform: uppercase;
+  text-decoration: none;
 }
 
 @media print {
@@ -380,6 +387,7 @@ html.js fieldset.collapsed {
   .header-main-menu a.myaccount:hover,
   .header-main-menu a.myaccount:focus {
     background-color: inherit;
+    text-decoration-line: none !important;
   }
 }
 
@@ -511,9 +519,7 @@ input {
 	position: absolute;
 	right: 0;
 	top: -50px;
-}
-#block-megamenu nav button svg.svg-inline--fa {
-	color: #fff;
+  color: #fff;
 }
 #block-megamenu .menu { margin: 10px 0; }
 #block-megamenu .menu,
@@ -771,7 +777,7 @@ input {
     background-color: #00457c;
 }
 
-body.path-frontpage .region.region-footer {
+body .footer2 .region.region-footer {
   max-width: 1350px;
 	margin: 0 auto;
 }
@@ -789,7 +795,9 @@ body.path-frontpage .region.region-footer {
 
 .footer2 a {
 	color: #fff;
+  text-decoration-line: none;
 }
+.footer2 a:hover { text-decoration-line: underline; }
 
 .footer2 address {
 	margin-bottom: 0px;
@@ -834,7 +842,7 @@ body.path-frontpage .region.region-footer {
 	text-transform: none;
 }
 .footer2 .land-acknowledgement a {
-	text-decoration:  underline;
+	text-decoration-line: underline;
 }
 
 @media print {
