@@ -30,6 +30,9 @@ from the `<div class="header">` tag down to the closing div just before the
 2. Remove the style parameter from all elements. These are applied
 dynamically by the javascript.
 
+3. In navbar-header, remove the generated svg and path, and uncomment the
+font-awesome `<i>` element.
+
 ## Updating the footer
 
 Each Libapp has a separate footer to include the specific login link.
