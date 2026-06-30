@@ -39,5 +39,3 @@ Each Libapp has a separate footer to include the specific login link.
 Changes to the global footer should be carefully reproduced on each separate
 file.
 
-IMPORTANT: The URL of the newsletter subscription form should also point to 
-the drupal site.
