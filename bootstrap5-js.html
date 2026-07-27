@@ -1,0 +1,178 @@
+<script>
+/*
+ * BOOTSTRAP 5
+ */
+// Make these global for convenience
+let ucscdropdownElementList = null;
+let ucscdropdownList = [];
+let ucscMegaMenu = null;
+
+jQuery(document).ready(function ($) {
+	/* search form placeholder text */
+	$('#search-block-form input.form-search').attr("placeholder", "Search this Site");
+
+	/* Check if we are on one of the event pages before processing events */
+	if (document.URL.includes("calendar.library.ucsc.edu/calendar/library-events")) {
+		var count = 0;
+		var processed = false;
+		var updateEvents = window.setInterval(function(){
+			if (processed || (count > 100)) {
+				clearInterval(updateEvents);
+			}
+			processed = removeEventLinks();
+			reformatMoreTags();
+			count++;
+		}, 100);
+	};
+
+	// Bootstrap 5 variabes for A-Z list megamenu
+	ucscdropdownElementList = document.querySelectorAll('#navbar-collapse-1 .dropdown-toggle');
+	ucscdropdownList = [...ucscdropdownElementList].map(dropdownToggleEl => new bootstrap.Dropdown(dropdownToggleEl));
+	ucscMegaMenu = document.getElementById('navbar-collapse-1');
+
+	/* Initialize the megamenu behavior */
+	menuResizeEvent();
+
+	/* Megamenu hover effects
+	 * Defaults are set in global.css, for users without javascript
+	 */
+	// Hover effects for individual menu items
+	$('#block-megamenu .dropdown-menu li').on("mouseenter focusin", function () {
+		if (jQuery(window).width() > 767) {
+			// set links in all columns to #ccc
+			$('#block-megamenu').find('.dropdown-menu span').css('color', '#ccc');
+			// set links in own column to #fff
+			$(this).parent().find('span').css('color', '#fff');
+			// hover effect for parent category
+	    	$(this).parent().prev().css({"background-color": "#ffcc33", "color": "#000"});
+    	}
+    }).on("mouseleave focusout", function () {
+    	if (jQuery(window).width() > 767) {
+        	// set links in all columns to #fff, in case focus leaves whole menu
+			$('#block-megamenu').find('.dropdown-menu span').css('color', '#fff');
+			// reset hover effect for parent category
+    		$(this).parent().prev().css({"background-color": "inherit", "color": "#fff"});
+    	}
+    });
+    // Hover effects for top-level menu categories
+    // Manually set the hover effect because the above code sets it on the element, 
+    // which overwrites the existing css rule (global.css line ~433).
+	$('#block-megamenu .dropdown-toggle').on("mouseenter focusin", function() {
+		if (jQuery(window).width() > 767) {
+			$(this).css({ "background-color": "#ffcc33", "color": "#000" });
+			// set links in all columns to #ccc
+			$('#block-megamenu').find('.dropdown-menu span').css('color', '#ccc');
+			// set links in own column to #fff
+			$(this).next().children().find('span').css('color', '#fff');
+		} else {
+			$(this).css({ "background-color": "inherit", "color": "#003c6c", "text-decoration": "underline" });
+		}
+    }).on("mouseleave focusout", function () {
+    	if (jQuery(window).width() > 767) {
+	        $(this).css({ "background-color": "inherit", "color": "#fff" });
+    	    // set links in all columns to #fff, in case focus leaves whole menu
+			$('#block-megamenu').find('.dropdown-menu span').css('color', '#fff');
+		} else {
+			$(this).css({"color": "#000", "text-decoration": "none"});
+		}
+	});
+});
+
+// Bootstrap 5 megamenu for A-Z list
+function toggleMegaMenu(e) {
+	// Prevent recursion when toggling the other menus
+	ucscMegaMenu.removeEventListener('hide.bs.dropdown', toggleMegaMenu, false);
+	ucscMegaMenu.removeEventListener('show.bs.dropdown', toggleMegaMenu, false);
+
+	// Bootstrap will toggle the triggering menu, so we toggle the others here
+	ucscdropdownList.forEach(function (drop) {
+		if(e.target != drop._element) {
+			drop.toggle();
+		}
+	});
+	// Add the listener back
+	ucscMegaMenu.addEventListener('hide.bs.dropdown', toggleMegaMenu, false);
+	ucscMegaMenu.addEventListener('show.bs.dropdown', toggleMegaMenu, false);
+}
+
+// Debounce function for window resizing
+// Currently used to swap megamenu behavior
+var menuResizeTimer;
+window.onresize = function(){
+	clearTimeout(menuResizeTimer);
+	menuResizeTimer = setTimeout(menuResizeEvent, 100);
+};
+
+/* Megamenu behavior changes on window resize
+ * Desktop: all dropdowns open at once
+ * Mobile: one dropdown open at a time
+ */
+function menuResizeEvent(){
+	if (jQuery(window).width() < 767) {
+		jQuery('#block-megamenu .dropdown-toggle').each(function () {
+			jQuery(this).attr('data-target','dropdown').css('color', '#000');
+		});
+		// Set link colors, in case colors were set on the elements on desktop
+		jQuery('#block-megamenu').find('.dropdown-menu span').css('color', '#000');
+		// BS 5
+		ucscMegaMenu.removeEventListener('hide.bs.dropdown', toggleMegaMenu, false);
+		ucscMegaMenu.removeEventListener('show.bs.dropdown', toggleMegaMenu, false);
+	} else {
+		jQuery('#block-megamenu .dropdown-toggle').each(function () {
+			jQuery(this).attr('data-target','#navbar-collapse-1 .dropdown').css('color', '#fff');
+		});
+		// Set link colors, in case colors were set on the elements on mobile
+		jQuery('#block-megamenu').find('.dropdown-menu span').css('color', '#fff');
+		// BS 5
+		ucscMegaMenu.addEventListener('show.bs.dropdown', toggleMegaMenu, false);
+		ucscMegaMenu.addEventListener('hide.bs.dropdown', toggleMegaMenu, false);
+	}
+}
+
+/* Remove Libcal Event link tags and tooltip styling */
+function removeEventLinks() {
+    /* replace link tag with plain text */
+    let remLinks = document.querySelectorAll(".s-lc-event-category-link");
+	if (remLinks.length) {
+		for (let i = 0; i < remLinks.length; i++) {
+			if (remLinks[i].children.length) {
+				let txt = remLinks[i].children[0].textContent;
+				remLinks[i].innerHTML = txt;
+			}
+		}
+        /* Disable tooltips */
+		jQuery('.s-lc-event-category-link').tooltip('disable');
+		return true;
+    }
+    return false;
+}
+
+/* On Libcal Events, change the more tag into multiple regular tags */
+function reformatMoreTags() {
+    let lst = document.querySelectorAll(".s-lc-eventcard-tag-more");
+    let tagColors = ["#58d13a", "#d13aab", "#d1ab3a", "#a13abd"];
+    if (lst.length) {
+        /* In each more tag, get the tooltip titles */
+        for (var i = 0; i < lst.length; i++) {
+            let arr = lst[i].firstElementChild.dataset.originalTitle.split(",");
+            let parent = lst[i].parentNode;
+            /* Create a new li for each tag */
+            for (var j = 0; j < arr.length; j++) {
+                let replacementLI = document.createElement("li");
+                replacementLI.classList.add("s-lc-eventcard-tag");
+
+                var cindex = j % 4;
+
+                replacementLI.innerHTML = `
+                    <span class="s-lc-event-category-color" style="background-color:${tagColors[cindex]}">&nbsp;</span>
+                    <span class="s-lc-event-category-link" title="" data-original-title="${arr[j]}">
+                        ${arr[j]}
+                    </span>
+                    `;
+                parent.appendChild(replacementLI);
+                lst[i].remove();
+            };
+        };
+    }
+}
+</script>
