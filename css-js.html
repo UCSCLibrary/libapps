@@ -890,13 +890,21 @@ body .footer2 .region.region-footer {
   text-decoration-color: #fff;
   text-transform: uppercase;
 }
-.footer2 a:hover { text-decoration-color: #ffc500; }
+.footer2 a:hover {
+	color: #fff;
+	text-decoration-color: #ffc500;
+}
 
 .footer2 #logo-footer { max-width: 350px; }
 
 .footer2 address { margin: 10px 0; }
 
-.footer2 ul { list-style: none; }
+.footer2 h2 { color: #fff; }
+
+.footer2 ul {
+	padding-left: 0;
+	list-style: none;
+}
 .footer2 li { margin-bottom: 3px; }
 .footer2 li a {
 	display: block;
@@ -1126,6 +1134,10 @@ border-top: 1px solid #ddd;
 #s-lib-bc .breadcrumb > .active { color: #000; }
 #s-lib-public-main .nav-pills > li.active > a,
 #s-lib-public-main .nav-pills > li.active > a:hover { background-color: #003c6c }
+
+/* Adjust libguides system footer */
+.s-lib-footer { border-top: none; }
+#libguides-sys-footer { background-color: #00457c; }
 
 /* Bootstrap 5 A-Z list styles */
 #s-lib-public-main,
