@@ -822,7 +822,10 @@ body .footer2 .region.region-footer {
 
 .footer2 address { margin: 10px 0; }
 
-.footer2 ul { list-style: none; }
+.footer2 div ul {
+	padding-left: 0;
+	list-style: none;
+}
 .footer2 li { margin-bottom: 3px; }
 .footer2 li a {
 	display: block;
@@ -998,6 +1001,9 @@ border-right: 1px solid #DDD;
 }
 
 #s-lg-guide-tabs .nav-tabs > li.active { width: 252px; }
+
+/* match libguides footer to our full-width background */
+.s-lib-public-body #s-lib-footer-public { width: 100%; }
 
 /*hides down arrow for sub-menu items*/
 a.s-lg-tab-drop.dropdown-toggle { display:none; }
