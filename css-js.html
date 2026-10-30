@@ -2,10 +2,7 @@
 /*
  * BOOTSTRAP 5
  */
-// Make these global for convenience
-let ucscdropdownElementList = null;
-let ucscdropdownList = [];
-let ucscMegaMenu = null;
+/* Spencer.js scripts */
 
 jQuery(document).ready(function ($) {
 	/* search form placeholder text */
@@ -25,13 +22,43 @@ jQuery(document).ready(function ($) {
 		}, 100);
 	};
 
-	// Bootstrap 5 variabes for A-Z list megamenu
-	ucscdropdownElementList = document.querySelectorAll('#navbar-collapse-1 .dropdown-toggle');
-	ucscdropdownList = [...ucscdropdownElementList].map(dropdownToggleEl => new bootstrap.Dropdown(dropdownToggleEl));
-	ucscMegaMenu = document.getElementById('navbar-collapse-1');
-
 	/* Initialize the megamenu behavior */
 	menuResizeEvent();
+
+	/* Megamenu, on desktop toggle all dropdowns together */
+	$('#block-megamenu .dropdown-toggle').on("click", function (e) {
+	    if ($(window).width() >= 768) {
+	        e.preventDefault();
+	        
+	        var $allMenus = $('#block-megamenu .dropdown-menu');
+	        var $allToggles = $('#block-megamenu .dropdown-toggle');
+	        
+	        if ($allMenus.hasClass('show')) {
+	            $allMenus.removeClass('show');
+	            $allToggles.removeClass('show').attr('aria-expanded', 'false');
+	        } else {
+	            $allMenus.addClass('show');
+	            $allToggles.addClass('show').attr('aria-expanded', 'true');
+	        }
+	    }
+	});
+	/* Close the megamenu on desktop when clicked outside the menu */
+	$(document).on('click', function(e) {
+	    if ($(window).width() >= 768) {
+	        // Check if the clicked element is outside the menu
+	        if (!$(e.target).closest('#block-megamenu').length) {
+	            
+	            var $allMenus = jQuery('#block-megamenu .dropdown-menu');
+	            var $allToggles = jQuery('#block-megamenu .dropdown-toggle');
+	            
+	            // If the menus are open, close them
+	            if ($allMenus.hasClass('show')) {
+	                $allMenus.removeClass('show');
+	                $allToggles.removeClass('show').attr('aria-expanded', 'false');
+	            }
+	        }
+	    }
+	});
 
 	/* Megamenu hover effects
 	 * Defaults are set in global.css, for users without javascript
@@ -57,7 +84,7 @@ jQuery(document).ready(function ($) {
     // Hover effects for top-level menu categories
     // Manually set the hover effect because the above code sets it on the element, 
     // which overwrites the existing css rule (global.css line ~433).
-	$('#block-megamenu .dropdown-toggle').on("mouseenter focusin", function() {
+    $('#block-megamenu .dropdown-toggle').on("mouseenter focusin", function() {
 		if (jQuery(window).width() > 767) {
 			$(this).css({ "background-color": "#ffcc33", "color": "#000" });
 			// set links in all columns to #ccc
@@ -76,24 +103,45 @@ jQuery(document).ready(function ($) {
 			$(this).css({"color": "#000", "text-decoration": "none"});
 		}
 	});
+
+	// Mobile sidebar toggling
+	$("#mobile-navbar-btn .close").hide();
+	$("#mobile-navbar-btn .open").click(function() {
+		$("#sidebar").slideToggle("slow", function() {
+			$("#mobile-navbar-btn .open").hide();
+			$("#mobile-navbar-btn .close").show();
+		});
+	});
+	$("#mobile-navbar-btn .close").click(function() {
+		$("#sidebar").slideToggle("slow", function() {
+			$("#mobile-navbar-btn .close").hide();
+			$("#mobile-navbar-btn .open").show();
+		});
+	});
+
+	// Welcome Block - show the text when video ends
+	$('#welcome-block-video').on('ended',function(){
+      $('.welcome-block-text').fadeIn('slow');
+    });
+
+    // GVC World News Ticker
+    $('body.path-gvc-world-news div.view-gvc-world-news .item-list').easyTicker({
+        easing: 'swing',
+        speed: 5000,
+        interval: 5000,
+        height: 650,
+        mousePause: false,
+    });
+
 });
 
-// Bootstrap 5 megamenu for A-Z list
-function toggleMegaMenu(e) {
-	// Prevent recursion when toggling the other menus
-	ucscMegaMenu.removeEventListener('hide.bs.dropdown', toggleMegaMenu, false);
-	ucscMegaMenu.removeEventListener('show.bs.dropdown', toggleMegaMenu, false);
+jQuery(window).bind("load", function () {
+	// Display welcome text in case the video ending event was missed
+	if (jQuery('.welcome-block-text').css('display') == 'none') {
+		jQuery('.welcome-block-text').fadeIn('slow');
+	}
+});
 
-	// Bootstrap will toggle the triggering menu, so we toggle the others here
-	ucscdropdownList.forEach(function (drop) {
-		if(e.target != drop._element) {
-			drop.toggle();
-		}
-	});
-	// Add the listener back
-	ucscMegaMenu.addEventListener('hide.bs.dropdown', toggleMegaMenu, false);
-	ucscMegaMenu.addEventListener('show.bs.dropdown', toggleMegaMenu, false);
-}
 
 // Debounce function for window resizing
 // Currently used to swap megamenu behavior
@@ -104,28 +152,23 @@ window.onresize = function(){
 };
 
 /* Megamenu behavior changes on window resize
- * Desktop: all dropdowns open at once
- * Mobile: one dropdown open at a time
+ * Desktop: all dropdowns open at once, use our function
+ * Mobile: one dropdown open at a time, use bootstrap/popper
  */
 function menuResizeEvent(){
-	if (jQuery(window).width() < 767) {
+	if (jQuery(window).width() < 768) {
 		jQuery('#block-megamenu .dropdown-toggle').each(function () {
-			jQuery(this).attr('data-target','dropdown').css('color', '#000');
+			jQuery(this).attr('data-bs-toggle', 'dropdown').css('color', '#000');
+
 		});
 		// Set link colors, in case colors were set on the elements on desktop
 		jQuery('#block-megamenu').find('.dropdown-menu span').css('color', '#000');
-		// BS 5
-		ucscMegaMenu.removeEventListener('hide.bs.dropdown', toggleMegaMenu, false);
-		ucscMegaMenu.removeEventListener('show.bs.dropdown', toggleMegaMenu, false);
 	} else {
 		jQuery('#block-megamenu .dropdown-toggle').each(function () {
-			jQuery(this).attr('data-target','#navbar-collapse-1 .dropdown').css('color', '#fff');
+			jQuery(this).removeAttr('data-bs-toggle').css('color', '#fff');
 		});
 		// Set link colors, in case colors were set on the elements on mobile
 		jQuery('#block-megamenu').find('.dropdown-menu span').css('color', '#fff');
-		// BS 5
-		ucscMegaMenu.addEventListener('show.bs.dropdown', toggleMegaMenu, false);
-		ucscMegaMenu.addEventListener('hide.bs.dropdown', toggleMegaMenu, false);
 	}
 }
 
@@ -175,6 +218,7 @@ function reformatMoreTags() {
         };
     }
 }
+
 </script>
 <style>
 
@@ -276,6 +320,9 @@ h3 {
   margin: 1.25em 0 .75em;
   text-transform: uppercase;
 }
+ul {
+	padding-left: 0;
+}
 input.form-radio {
     position: relative;
     top: -4px;
@@ -337,6 +384,14 @@ html.js fieldset.collapsed {
 	.header-brand { display: none; }
 }
 
+/* Support our non-standard navbars */
+@media (min-width: 768px) {
+  .navbar-expand-md.navbar-collapse {
+  	display: flex !important;
+    flex-basis: auto;
+  }
+}
+
 /* Main menu - top bar, not mega menu */
 .header-main-menu {
 	order: 3;
@@ -344,6 +399,7 @@ html.js fieldset.collapsed {
 }
 
 .header-main-menu ul.menu {
+	width: 100%;
 	display: flex;
 	flex-wrap: nowrap;
 	justify-content: space-around;
@@ -406,6 +462,8 @@ html.js fieldset.collapsed {
 	.header-main-menu {
 		order: 2;
 		margin-top: 0;
+    padding-right: 15px;
+    padding-left: 15px;
 		background-color: #fff;
 	}
 	.header-main-menu ul.menu {
@@ -520,7 +578,6 @@ input {
 		padding-right: 58px;
 	}
 	.navbar { border-radius: 0;	}
-	.navbar-toggle { display: none; }
 }
 
 /* Site title: University Library */
@@ -532,8 +589,7 @@ input {
 @media all and (min-width: 980px) {
 	.header-secondary a.navbar-brand {
 		display: block;
-		margin-top: 12px;
-		padding: 8px 15px;
+		padding: 0 15px;
 		height: auto;
 		max-width: 170px;
 		font-size: 24px;
@@ -556,12 +612,12 @@ input {
 /* Main Menu / Mega-Menu
  * Note: link hover effects handled in spencer.js, with some defaults here
  */
-#block-megamenu { padding: 0 15px; }
+#block-megamenu { padding: 0 30px; }
 #block-megamenu .navbar { min-height: 0; }
-#block-megamenu .navbar-toggle {
+#block-megamenu .navbar-toggler {
 	position: absolute;
 	right: 0;
-	top: -50px;
+	top: -38px;
   color: #fff;
 }
 #block-megamenu .menu { margin: 10px 0; }
@@ -574,11 +630,12 @@ input {
 	border-bottom: 1px solid #000;
 	background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IS0tIFVwbG9hZGVkIHRvOiBTVkcgUmVwbywgd3d3LnN2Z3JlcG8uY29tLCBHZW5lcmF0b3I6IFNWRyBSZXBvIE1peGVyIFRvb2xzIC0tPgo8c3ZnIHdpZHRoPSI4MDBweCIgaGVpZ2h0PSI4MDBweCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik00LjQ2OTM4IDkuMzk5NjZDNC43NjIyNyA5LjEwNjc3IDUuMjM3MTUgOS4xMDY3NyA1LjUzMDA0IDkuMzk5NjZMMTEuODk0IDE1Ljc2MzZDMTEuOTkxNiAxNS44NjEzIDEyLjE0OTkgMTUuODYxMyAxMi4yNDc2IDE1Ljc2MzZMMTguNjExNSA5LjM5OTY2QzE4LjkwNDQgOS4xMDY3NyAxOS4zNzkzIDkuMTA2NzcgMTkuNjcyMiA5LjM5OTY2QzE5Ljk2NTEgOS42OTI1NiAxOS45NjUxIDEwLjE2NzQgMTkuNjcyMiAxMC40NjAzTDEzLjMwODIgMTYuODI0M0MxMi42MjQ4IDE3LjUwNzcgMTEuNTE2OCAxNy41MDc3IDEwLjgzMzMgMTYuODI0M0w0LjQ2OTM4IDEwLjQ2MDNDNC4xNzY0OSAxMC4xNjc0IDQuMTc2NDkgOS42OTI1NiA0LjQ2OTM4IDkuMzk5NjZaIiBmaWxsPSIjMDAwMDAwIi8+DQo8L3N2Zz4=") right center/6% no-repeat;
 }
-#block-megamenu li.dropdown.open {
+#block-megamenu li.dropdown:has(a.show) {
 	background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IS0tIFVwbG9hZGVkIHRvOiBTVkcgUmVwbywgd3d3LnN2Z3JlcG8uY29tLCBHZW5lcmF0b3I6IFNWRyBSZXBvIE1peGVyIFRvb2xzIC0tPgo8c3ZnIHdpZHRoPSI4MDBweCIgaGVpZ2h0PSI4MDBweCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMi4yNDc2IDguMjM3NDFDMTIuMTUgOC4xMzk3OCAxMS45OTE3IDguMTM5NzggMTEuODk0IDguMjM3NDFMNS41MzAwOSAxNC42MDE0QzUuMjM3MTkgMTQuODk0MyA0Ljc2MjMyIDE0Ljg5NDMgNC40Njk0MyAxNC42MDE0QzQuMTc2NTMgMTQuMzA4NSA0LjE3NjUzIDEzLjgzMzYgNC40Njk0MyAxMy41NDA3TDEwLjgzMzQgNy4xNzY3NUMxMS41MTY4IDYuNDkzMzMgMTIuNjI0OCA2LjQ5MzMzIDEzLjMwODMgNy4xNzY3NUwxOS42NzIyIDEzLjU0MDdDMTkuOTY1MSAxMy44MzM2IDE5Ljk2NTEgMTQuMzA4NSAxOS42NzIyIDE0LjYwMTRDMTkuMzc5MyAxNC44OTQzIDE4LjkwNDUgMTQuODk0MyAxOC42MTE2IDE0LjYwMTRMMTIuMjQ3NiA4LjIzNzQxWiIgZmlsbD0iIzAwMDAwMCIvPg0KPC9zdmc+");
 	background-position: 100% 5%;
 }
 #block-megamenu li.dropdown > a {
+	display: block;
 	padding: 20px 0;
 	color: #000;
 	font-size: 16px;
@@ -593,10 +650,12 @@ input {
 	color: #000;
   cursor: pointer;
 }
+#block-megamenu li.dropdown > a:after { display: none; }
 #block-megamenu .open > a { background-color: inherit; }
 #block-megamenu .dropdown-menu {
 	margin: 0 0 10px;
 	padding: 0;
+	background-color: transparent;
 }
 #block-megamenu .dropdown-menu a span {
 	color: #000;
@@ -614,8 +673,10 @@ input {
 	border-color: #ffcc33;
 }
 #block-megamenu .dropdown-menu > li > a {
+	display: block;
 	white-space: inherit;
 	padding: 10px 20px;
+	line-height: 20px;
 }
 
 @media all and (min-width: 768px) {
@@ -623,23 +684,28 @@ input {
 		flex-grow: 1;
 		padding: 0;
 	}
+	#navbar-collapse-1 { justify-content: end; }
 	#block-megamenu .menu {
 		display: flex;
 		align-items: stretch;
 		justify-content: end;
+		flex-wrap: nowrap;
 		height: 95px;
 		margin: 0;
 	}
 	#block-megamenu li.dropdown {
 		display: flex;
+		height: 100%;
 		border-bottom: none;
 		background: none;
 	}
 	#block-megamenu li.dropdown > a {
 		display: flex;
 		align-items: center;
+		white-space: normal;
 		color: #fff;
 		font-size: 12px;
+		line-height: 20px;
 		height: 100%;
 		max-width: 182px;
 		padding: 15px;
@@ -649,11 +715,11 @@ input {
 	#block-megamenu .dropdown-menu {
 		min-width: auto;
   		width: 100%;
-  		height: 435px;
+  		height: 464px;
   		margin: 0;
   		border-radius: 0;
   		box-shadow: 0px 4px 4px -4px #222;
-  		background: rgba(57, 81, 123, 0.9) !important;
+  		background: rgba(57, 81, 123, 0.9);
 		backdrop-filter: blur(5px);
 	}
 	#block-megamenu .dropdown-menu a span {
@@ -674,10 +740,11 @@ input {
 }
 @media all and (min-width: 870px) {
 	#block-megamenu li.dropdown > a { font-size: 12px; }
-	#block-megamenu .dropdown-menu { height: 396px; }
+}
+@media all and (min-width: 906px) {
+	#block-megamenu .dropdown-menu { height: 435px; }
 }
 @media all and (min-width: 980px) {
-	#block-megamenu .dropdown-menu { height: 435px; }
 	#block-megamenu li.dropdown > a.find { max-width: 188px; }
 }
 @media all and (min-width: 1110px) {
@@ -687,9 +754,12 @@ input {
 
 /* Site search form */
 #block-searchform {
+	display: block;
 	margin: 10px 0;
 	padding: 5px 30px;
 }
+/* overriding BS5 flex navbar breaks the collapse, fix it w a more specific rule */
+#block-searchform.collapse:not(.show) { display: none; }
 
 #search-block-form .form-submit {
   display: none;
@@ -699,6 +769,7 @@ input {
 	border: 1px solid #fff;
 	background: #fff url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCwwLDI1NiwyNTYiPgo8ZyBmaWxsPSIjMDAzYzZjIiBmaWxsLXJ1bGU9Im5vbnplcm8iIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2UtbGluZWNhcD0iYnV0dCIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtZGFzaGFycmF5PSIiIHN0cm9rZS1kYXNob2Zmc2V0PSIwIiBmb250LWZhbWlseT0ibm9uZSIgZm9udC13ZWlnaHQ9Im5vbmUiIGZvbnQtc2l6ZT0ibm9uZSIgdGV4dC1hbmNob3I9Im5vbmUiIHN0eWxlPSJtaXgtYmxlbmQtbW9kZTogbm9ybWFsIj48ZyB0cmFuc2Zvcm09InNjYWxlKDguNTMzMzMsOC41MzMzMykiPjxwYXRoIGQ9Ik0xMywzYy01LjUxMSwwIC0xMCw0LjQ4OSAtMTAsMTBjMCw1LjUxMSA0LjQ4OSwxMCAxMCwxMGMyLjM5NjUxLDAgNC41OTczOCwtMC44NTEwMSA2LjMyMjI3LC0yLjI2MzY3bDUuOTcwNyw1Ljk3MDdjMC4yNTA4MiwwLjI2MTI0IDAuNjIzMjcsMC4zNjY0OCAwLjk3MzcxLDAuMjc1MTJjMC4zNTA0NCwtMC4wOTEzNiAwLjYyNDExLC0wLjM2NTAzIDAuNzE1NDcsLTAuNzE1NDdjMC4wOTEzNiwtMC4zNTA0NCAtMC4wMTM4OCwtMC43MjI4OSAtMC4yNzUxMiwtMC45NzM3MWwtNS45NzA3LC01Ljk3MDdjMS40MTI2NiwtMS43MjQ4OCAyLjI2MzY3LC0zLjkyNTc2IDIuMjYzNjcsLTYuMzIyMjdjMCwtNS41MTEgLTQuNDg5LC0xMCAtMTAsLTEwek0xMyw1YzQuNDMwMTIsMCA4LDMuNTY5ODggOCw4YzAsNC40MzAxMiAtMy41Njk4OCw4IC04LDhjLTQuNDMwMTIsMCAtOCwtMy41Njk4OCAtOCwtOGMwLC00LjQzMDEyIDMuNTY5ODgsLTggOCwtOHoiPjwvcGF0aD48L2c+PC9nPgo8L3N2Zz4K") 99% center/25px no-repeat !important;
 	width: 100%;
+	box-sizing: border-box;
 	padding: 5px 25px 5px 5px;
 	box-shadow: 0px 1px 5px #ccc;
 	font-size: 12px;
@@ -752,47 +823,6 @@ input {
 		background-color: #fff;
 		cursor: text;
 	}
-}
-
-/* Megamenu for Bootstrap 5 A-Z list */
-#block-megamenu .navbar-expand-md { display: block; }
-#block-megamenu .navbar-collapse {
-	border-top: 1px solid transparent;
-	-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
-  	box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
-	padding-left: 15px;
-	padding-right: 15px
- }
-#block-megamenu .navbar-toggler:focus { box-shadow: none; }
-#block-megamenu .show > a { background-color: inherit; }
-#block-megamenu .dropdown > a.dropdown-toggle {
-	padding: 10px 15px;
-	white-space: normal;
-	display: block;
-}
-#block-megamenu .dropdown > a.dropdown-toggle::after { display: none; }
-#block-megamenu .dropdown-menu { background-color: transparent; }
-#block-megamenu .dropdown-menu > li > a { display: block; }
-
-@media all and (min-width: 768px) {
-	#block-megamenu .navbar-expand-md {
-		display: flex;
-		align-items: stretch;
-	}
-	#block-megamenu .dropdown > a.dropdown-toggle {
-		padding: 15px 15px;
-		display: flex;
-	}
-	#block-megamenu .navbar-collapse.collapse {
-    	display: block !important;
-    	flex-grow: inherit;
-    	height: auto !important;
-    	border-top: 0;
-    	box-shadow: none;
-    	-webkit-box-shadow: none;
-   		padding-bottom: 0;
-    	overflow: visible !important;
-  }
 }
 
 /* Other styles */
@@ -890,10 +920,7 @@ body .footer2 .region.region-footer {
   text-decoration-color: #fff;
   text-transform: uppercase;
 }
-.footer2 a:hover {
-	color: #fff;
-	text-decoration-color: #ffc500;
-}
+.footer2 a:hover { text-decoration-color: #ffc500; }
 
 .footer2 #logo-footer { max-width: 350px; }
 
@@ -981,6 +1008,7 @@ body.webform-share-page-body #edit-actions input.form-submit:focus {
 		float: left;
 	}
 }
+
 
 /* Libchat */
 #libchat_d3813658438965a0df80a95fc6312cc4 {
@@ -1136,25 +1164,6 @@ border-top: 1px solid #ddd;
 #s-lib-public-main .nav-pills > li.active > a,
 #s-lib-public-main .nav-pills > li.active > a:hover { background-color: #003c6c }
 
-/* Adjust libguides system footer */
-.s-lib-footer { border-top: none; }
-#libguides-sys-footer { background-color: #00457c; }
-
-/* Bootstrap 5 A-Z list styles */
-#s-lib-public-main,
-#s-lib-public-header { background-color: #fff; }
-body #s-lib-public-header {
-	padding-top: 2.188rem;
-	padding-bottom: 1.25rem;
-	margin-top: 0;
-	margin-bottom: 0;
-}
-#s-lib-public-header-title {
-	margin-top: 0;
-	margin-left: 0;
-}
-
-
 /*
  * LibAnswers Content Styling
  */
@@ -1271,6 +1280,17 @@ a.s-lc-item-more-info {
 	background-color: #fff;
 	border: 1px solid #ccc;
 }
+
+/* Overwrite bootstrap 5 button styles to match existing button colors */
+.btn-info {
+  --bs-btn-bg: #003c6c;
+  --bs-btn-border-color: #46b8da;
+  --bs-btn-hover-bg: #31b0d5;
+  --bs-btn-hover-border-color: #269abc;
+  --bs-btn-active-bg: #269abc;
+  --bs-btn-active-border-color: #1b6d85;
+  --bs-btn-color: #fff;
+  --bs-btn-hover-color: #fff;
 
 /* Add a link on spaces search to the browse all study rooms page */
 #browse-space-blocks {
