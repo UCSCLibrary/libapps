@@ -614,6 +614,7 @@ input {
  */
 #block-megamenu { padding: 0 30px; }
 #block-megamenu .navbar { min-height: 0; }
+#block-megamenu .navbar-collapse { max-height: none !important; }
 #block-megamenu .navbar-toggler {
 	position: absolute;
 	right: 0;
@@ -1195,10 +1196,16 @@ body.s-la-page-public { background-color: #fff; }
 .s-la-page-public .s-srch-result-title {font-size:16px;}
 
 /*Decreases font size of question metadata on Browse/Home page*/
-.s-la-faq-listing-meta {font-size:12px;}
+.s-la-faq-listing-meta {
+	margin: 10px 0;
+	font-size:12px;
+}
 
 /*Decreases font size of question metadata on Question page*/
-.s-la-faq-meta {font-size:12px;}
+.s-la-faq-meta {
+	margin: 10px 0;
+	font-size:12px;
+}
 
 /*Hides the word "Answer" in a FAQ*/
 .s-la-faq-answer-header {display:none;}
@@ -1208,6 +1215,12 @@ body.s-la-page-public { background-color: #fff; }
 
 /*Color contrast for a11y */
 .s-la-faq-listing-meta .divider {color: #595959;}
+
+/* Add padding to back to nav tabs */
+.s-la-page-public .nav > li > a {
+  display: block;
+  padding: 10px 15px;
+}
 
 
 /*
