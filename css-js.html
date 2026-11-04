@@ -877,7 +877,7 @@ input {
 
 /* Footer Styles */
 .footer,
-#s-lib-footer-public div {
+#s-lib-footer-public {
 	background-color: #00457c;
 	color: #fff;
 }
@@ -888,8 +888,19 @@ input {
 	color: #fff;
 }
 
+#s-lib-footer-public {
+	max-width: 100%;
+	border-top: none;
+}
 #s-lib-footer-public div {
-    background-color: #00457c;
+	margin: 0 auto;
+	max-width:1350px;
+	padding-left: 15px;
+  padding-right: 15px;
+}
+#s-lg-guide-header-meta {
+  border-top: 1px solid #507ca1;
+  padding-top: 20px;
 }
 
 body .footer2 .region.region-footer {
@@ -1051,16 +1062,25 @@ width:85%;
 #lg-content-area ul.nav-pills { z-index: 10; }
 #s-lg-public-skiplink { padding: 0px; }
 .s-lib-box .s-lib-box-title { font-size: 18px; }
+#lg-content-area .s-lib-box {
+	border-width: 0px;
+	box-shadow: none;
+}
 #s-lg-guide-header-info h1, .s-lib-header h1 {
 margin-top: 50px;
 margin-left: 15px;
 }
+
+#lg-content-area h2 { margin-top: 20px; }
 
 #lg-content-area #content_container {
 float: none;
 margin: 0 auto;
 max-width:1350px;
 }
+
+/* one page guides were designed with a smaller max-width */
+body.one-page-guide #s-lg-guide-main { max-width: 1200px; }
 
 #lg-content-area .s-lib-header {
 float:clear;
