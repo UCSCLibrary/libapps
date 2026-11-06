@@ -33,9 +33,14 @@ dynamically by the javascript.
 3. In navbar-header, remove the generated svg and path, and uncomment the
 font-awesome `<i>` element.
 
+
 ## Updating the footer
 
 Each Libapp has a separate footer to include the specific login link.
 Changes to the global footer should be carefully reproduced on each separate
 file.
 
+## Updating LibCal ##
+LibCal remains on Bootstrap 3, while the others are on Bootstrap 5, so we
+maintain a separate 'bootstrap3' branch for updating LibCal. Carefully backport
+any updates to this repository to that branch for LibCal.
